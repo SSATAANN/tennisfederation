@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Players!{% endblock %}
+
+{% block body %}
+ 
+<div class="container" style ="  display: flex;
+align-items: center;
+justify-content: center;
+height: 100vh; text-align: center;">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="mb-4">
+                <span class="h5">Players Management</span>
+            </div>
+            <a href="{{ path('app_addMatch') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >Add</a>
+            <div class="mb-5">
+              <table class="table shadow-soft rounded">
+                <thead>
+                  <tr>
+                    <th class="border-0 text-center" scope="col">ID</th>
+                        
+                    <th class="border-0 text-center" scope="col">Date</th>
+                    <th class="border-0 text-center" scope="col">Tournament</th>
+                    <th class="border-0 text-center" scope="col">Second Player</th>
+                    <th class="border-0 text-center" scope="col">Second Player</th>
+                    <th class="border-0 text-center" scope="col">Winner</th>
+                    <th class="border-0 text-center" scope="col">Loser</th>
+                    <th class="border-0 text-center" scope="col">Actions</th>
+                    
+                      
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for matches in m %}
+                    <tr>
+                        <td class="text-center">{{ matches.id }}</td>
+                        <td class="text-center">{{ matches.date|date('Y-m-d') }}</td>
+                        <td class="text-center">{{ matches.tournament }}</td>
+                        <td class="text-center">{{ matches.player1.firstName }} {{ matches.player1.lastName }}</td>
+                        <td class="text-center">{{ matches.player2.firstName }} {{ matches.player2.lastName }}</td>
+                        <td class="text-center">{{ matches.winner.firstName }} {{ matches.winner.lastName }}</td>
+                        <td class="text-center">{{ matches.loser.firstName }} {{ matches.loser.lastName }}</td>
+                        <td class="text-center"  style="display: flex;">
+                   
+                            <a href="{{ path('app_modmatch', {'id':matches.id}) }}" class="btn btn-primary" style="  margin-right: 10px;">Edit</a>
+                            <a href="{{ path('app_supmatch', {'id':matches.id}) }}" class="btn btn-primary" style="  margin-right: 10px;">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+                </tbody>
+              </table>
+            
+          </div>
+        
+          
+      </div>
+  </div>
+</div>
+{% endblock %}

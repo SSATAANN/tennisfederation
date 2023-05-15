@@ -1,0 +1,87 @@
+
+    {% extends 'base.html.twig' %}
+    {% block body %}
+
+    <div class="container mt-7" style ="height: 100vh;">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="mb-4">
+                    <span class="h5">Update Match</span>
+                </div>
+                
+                <div class="mb-5">
+                    <!-- Floating Labels Form -->
+                    {{ form_start(f, {'class': 'row g-3'}) }}
+                <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="{{ f.date.vars.id }}">Birth Date</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_widget(f.date.day, {'attr': {'class': 'form-control v'}}) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_widget(f.date.month, {'attr': {'class': 'form-control mb-3'}}) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_widget(f.date.year, {'attr': {'class': 'form-control mb-3'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-4">
+                        
+                            {{ form_widget(f.tournament, {'class': 'form-control'} ) }}
+                            <label for="floatingName">tournament</label>
+                        
+                    </div>
+                </div>
+                </div>
+                
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        {{ form_widget(f.player1, {'class': 'form-control'} ) }}
+                        <label for="floatingName">First Player</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        {{ form_widget(f.player2, {'class': 'form-control'} ) }}
+                        <label for="floatingName">Second Player</label>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    
+                        {{ form_widget(f.winner, {'class': 'form-control'} ) }}
+                        <label for="floatingName">Winner</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            {{ form_widget(f.loser, {'class': 'form-control'} ) }}
+                            <label for="floatingName">Loser</label>
+                        </div>
+                    </div>
+                </div>
+               
+                
+                
+                <div class="col-md-12 text-center">
+                    {{ form_widget(f.Add, {'attr': {'class': 'btn btn-primary'}} ) }}
+                </div>
+
+                     {{ form_end(f) }}<!-- End floating Labels Form -->
+            </div>
+              
+                
+            
+        </div>
+    </div>
+
+          
+  {% endblock %}
+    

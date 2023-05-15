@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+
+    <div class="container mt-7" style ="height: 100vh;">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="mb-4">
+                    <span class="h5">Update Player</span>
+                </div>
+                
+                <div class="mb-5">
+                    <!-- Floating Labels Form -->
+                    {{ form_start(f, {'class': 'row g-3'}) }}
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">First Name</label>
+                        {{ form_widget(f.firstName, {'class': 'form-control'} ) }}
+                    </div>
+                   
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Last Name</label>
+                        {{ form_widget(f.lastName, {'class': 'form-control'} ) }}
+                    </div>
+                </div>
+                </div>
+                
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Nationality</label>
+                        {{ form_widget(f.nationality, {'class': 'form-control'} ) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Gender</label>
+                        {{ form_widget(f.gender, {'class': 'form-control'} ) }}
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    
+                        <label class="form-label" for="{{ f.birthDate.vars.id }}">Birth Date</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_widget(f.birthDate.day, {'attr': {'class': 'form-control mb-3'}}) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_widget(f.birthDate.month, {'attr': {'class': 'form-control mb-3'}}) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_widget(f.birthDate.year, {'attr': {'class': 'form-control mb-3'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Height</label>
+                        {{ form_widget(f.height, {'class': 'form-control'} ) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Weight</label>
+                        {{ form_widget(f.weight, {'class': 'form-control'} ) }}
+                    </div>
+                </div>
+                </div>
+                 <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Handedness</label>
+                        {{ form_widget(f.handedness, {'class': 'form-control'} ) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Ranking</label>
+                        {{ form_widget(f.ranking, {'class': 'form-control'} ) }}
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Titles</label>
+                        {{ form_widget(f.titles, {'class': 'form-control'} ) }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-4">
+                        <label for="exampleInputEmail67">Bio</label>
+                        {{ form_widget(f.bio, {'class': 'form-control' ,'rows': 50} ) }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="custom-file mb-4">
+                        {{ form_widget(f.imageFile, {'attr': {'class': 'custom-file-input'} }) }}
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                </div>
+                
+                <div class="col-md-12 text-center">
+                    {{ form_widget(f.Add, {'attr': {'class': 'btn btn-primary'}} ) }}
+                </div>
+
+                     {{ form_end(f) }}<!-- End floating Labels Form -->
+            </div>
+              
+                
+            
+        </div>
+    </div>
+
+          
+  {% endblock %}

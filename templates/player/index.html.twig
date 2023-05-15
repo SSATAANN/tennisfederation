@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Players!{% endblock %}
+
+{% block body %}
+
+    <div class="container" style ="  display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; text-align: center;">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="mb-4">
+                    <span class="h5">Players Management</span>
+                </div>
+                <a href="{{ path('app_addplayer') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >Add</a>
+                <div class="mb-5">
+                    <table class="table shadow-soft rounded">
+                       <thead>
+                          <tr>
+                            <th class="border-0 text-center" scope="col" id="iD">ID</th>
+                            <th class="border-0 text-center" scope="col" id="images">Images</th>
+                            <th class="border-0 text-center" scope="col" id="First_Name">First Name</th>
+                            <th class="border-0 text-center" scope="col" id="Last_Name">Last Name</th>
+                            <th class="border-0 text-center" scope="col" id="Nationality">Nationality</th>
+                            <th class="border-0 text-center" scope="col" id="Birthday">Birthday</th>
+                            <th class="border-0 text-center" scope="col" id="Gender">Gender</th>
+                            <th class="border-0 text-center" scope="col" id="Height">Height</th>
+                            <th class="border-0 text-center" scope="col" id="Weight">Weight</th>
+                            <th class="border-0 text-center" scope="col" id="handedness">Handedness</th>
+                            <th class="border-0 text-center" scope="col" id="Ranking">Ranking</th>
+                            <th class="border-0 text-center" scope="col" id="Titles">Titles</th>
+                            <th class="border-0 text-center" scope="col" id="Bio">Bio</th>
+                            <th class="border-0 text-center" scope="col" id="Last_Name">Actions</th>
+                        </tr>
+                      </thead>
+                        <tbody>
+                        {% for players in p  %}
+                        <tr>
+                            <td class="text-center"> {{ players.id }}</td>
+                            <td class="text-center"> <img class="class="card-img-top rounded-circle" src="{{ asset('uploads/player_images/' ~ players.getImage) }}"></td>
+                            <td class="text-center"> {{ players.firstName  }}</td>
+                            <td class="text-center"> {{ players.lastName  }}</td>
+                            <td class="text-center"> {{ players.nationality  }}</td>
+                            <td class="text-center"> {{ players.birthDate|date('Y-m-d') }}</td>
+                            <td class="text-center"> {{ players.gender  }}</td>
+                            <td class="text-center"> {{ players.height  }}</td>
+                            <td class="text-center"> {{ players.weight  }}</td>
+                            <td class="text-center"> {{ players.handedness }}</td>
+                            <td class="text-center"> {{ players.ranking  }}</td>
+                            <td class="text-center"> {{ players.titles  }}</td>
+                            <td class="text-center" 
+                            style="max-height: 50px; max-width: 100px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;"> {{ players.bio  }}</td>
+                            <td  class="text-center"  style="display: flex;" > 
+                              <a href="{{ path('app_modplayer', {'id':players.id}) }}" class="btn btn-primary" style="  margin-right: 10px;">Edit</a>
+                              <a href="{{ path('app_supplayer', {'id':players.id}) }}" class="btn btn-primary" style="  margin-right: 10px;">Delete</a>
+                            </td>
+                        </tr>
+                       
+                        {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              
+                
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

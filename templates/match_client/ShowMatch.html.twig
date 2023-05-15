@@ -1,0 +1,24 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block content %}
+<section class="section section-lg pt-0">
+    <div class="container mt-8">
+        <div class="row justify-content-center mt-3">
+           
+              
+                <!-- Profile Card -->
+
+                {% for match in matches|slice(0, 9) %}
+                    {% include 'layouts/matches.html.twig' with {'match': match} %}
+                {% endfor %}
+   
+
+         
+    </div>
+</div>
+
+</section>
+
+
+
+{% endblock %}

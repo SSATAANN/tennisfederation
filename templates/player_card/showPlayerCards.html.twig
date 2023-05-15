@@ -1,0 +1,32 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block content %}
+<section class="section section-lg pt-0">
+    <div class="container">
+        <!-- Title -->
+        <div class="row">
+            <div class="col text-center">
+                <h2 class="display-1 mb-7 mt-7">PLAYERS</h2>
+            </div>
+        </div>
+        <!-- End of title-->
+        <div class="row justify-content-between">
+            
+            
+            
+                <!-- Profile Card -->
+
+        {% for playerCard in playerCards|slice(0, 9) %}
+            {% include 'layouts/card.html.twig' with {'playerCard': playerCard} %}
+        {% endfor %}
+   
+
+         
+
+    </div>
+</div>
+</section>
+
+
+
+{% endblock %}
