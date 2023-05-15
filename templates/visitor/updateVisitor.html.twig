@@ -1,0 +1,325 @@
+{% extends 'baseAdmin.html.twig' %}
+    {% block body %}
+    
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+      <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+             
+              <li class="breadcrumb-item text-sm">
+                <a class="opacity-5 text-dark" href="javascript:;">Management </a>
+              </li>
+              <li class=" text-sm text-dark active" aria-current="page"> / Add Match</li>
+            </ol>
+            <h6 class="font-weight-bolder mb-0">Matches</h6>
+          </nav>
+          <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+            <a href="javascript:;" class="nav-link text-body p-0">
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </a>
+          </div>
+          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+              <div class="input-group input-group-outline">
+                <label class="form-label">Search here</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            <ul class="navbar-nav  justify-content-end">
+              <li class="nav-item">
+                <a href="https://demos.creative-tim.com/material-dashboard-pro/pages/authentication/signin/illustration.html" class="nav-link text-body p-0 position-relative" target="_blank">
+                  <i class="material-icons me-sm-1">
+                    account_circle
+                  </i>
+                </a>
+              </li>
+              <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item px-3">
+                <a href="javascript:;" class="nav-link text-body p-0">
+                  <i class="material-icons fixed-plugin-button-nav cursor-pointer">
+                    settings
+                  </i>
+                </a>
+              </li>
+              <li class="nav-item dropdown pe-2">
+                <a href="javascript:;" class="nav-link text-body p-0 position-relative" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="material-icons cursor-pointer">
+                    notifications
+                  </i>
+                  <span class="position-absolute top-5 start-100 translate-middle badge rounded-pill bg-danger border border-white small py-1 px-2">
+                    <span class="small">11</span>
+                    <span class="visually-hidden">unread notifications</span>
+                  </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex align-items-center py-1">
+                        <span class="material-icons">email</span>
+                        <div class="ms-2">
+                          <h6 class="text-sm font-weight-normal my-auto">
+                            Check new messages
+                          </h6>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex align-items-center py-1">
+                        <span class="material-icons">podcasts</span>
+                        <div class="ms-2">
+                          <h6 class="text-sm font-weight-normal my-auto">
+                            Manage podcast session
+                          </h6>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex align-items-center py-1">
+                        <span class="material-icons">shopping_cart</span>
+                        <div class="ms-2">
+                          <h6 class="text-sm font-weight-normal my-auto">
+                            Payment successfully completed
+                          </h6>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+        <div class="container-fluid py-4">
+            <div class="row min-vh-80">
+              <div class="col-lg-8 col-md-10 col-12 m-auto">
+                <h3 class="mt-3 mb-0 text-center">Add new Match</h3>
+                <p class="lead font-weight-normal opacity-8 mb-7 text-center">This information will let us know more about you.
+                </p>
+                <div class="card">
+                  <div class="card-header p-0 position-relative mt-n5 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                      <div class="multisteps-form__progress">
+                        <button class="multisteps-form__progress-btn js-active" type="button" title="Match Info">
+                          <span>1. Match Info</span>
+                        </button>
+                      
+                        <button class="multisteps-form__progress-btn" type="button" title="Media">2. Image</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    {{ form_start(f, {'attr': {'class': 'multisteps-form__form', 'style': 'height: 391px;' } }) }}
+
+                      <div class="multisteps-form__panel pt-3 border-radius-xl bg-white js-active" data-animation="FadeIn">
+                        <h5 class="font-weight-bolder">Player Information</h5>
+                        <div class="multisteps-form__content">
+                      
+                          <div class="row mt-3">
+                            <div class="col-12 col-sm-6">
+                                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                              <div class="input-group input-group-dynamic">
+                                {{ form_widget(f.email, {
+                                    'attr': {
+                                        
+                                        'class': 'form-control',
+                                        'onfocus': 'focused(this)',
+                                        'onfocusout': 'defocused(this)',
+                                    }
+                                }) }}
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                                <label for="exampleFormControlInput1" class="form-label">Name</label>
+                              <div class="input-group input-group-dynamic">
+                                {{ form_widget(f.name, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'onfocus': 'focused(this)',
+                                        'onfocusout': 'defocused(this)',
+                                    }
+                                }) }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mt-3">
+
+                                <div class="col-12 col-sm-6  mt-3">
+                                  <div class="input-group input-group-dynamic">
+                                      
+                                      {{ form_widget(f.password , {
+                                          'attr': {
+                                              'class': 'form-control',
+                                              'onfocus': 'focused(this)',
+                                              'onfocusout': 'defocused(this)',
+                                          }
+                                      }) }}
+                                  </div>
+                              </div>
+                              <div class="col-12 col-sm-6  mt-3">
+                                <label for="exampleFormControlInput1" class="form-label">Role</label>
+                                <div class="input-group input-group-dynamic">
+                                    
+                                    {{ form_widget(f.roles, {
+                                        'attr': {
+                                            'class': 'form-control',
+                                            'onfocus': 'focused(this)',
+                                            'onfocusout': 'defocused(this)',
+                                        }
+                                    }) }}
+                                </div>
+                            </div>
+                          </div>
+                                
+                                
+                            </div>
+                          <div class="row mt-3">
+                            <div class="col-12 col-sm-6">
+                                <label for="exampleFormControlInput1" class="form-label">Gender</label>
+                              <div class="input-group input-group-dynamic">
+                                {{ form_widget(f.gender, {
+                                    'attr': {
+                                        
+                                        'class': 'form-control',
+                                        'onfocus': 'focused(this)',
+                                        'onfocusout': 'defocused(this)',
+                                    }
+                                }) }}
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                                <label for="exampleFormControlInput1" class="form-label">Phone</label>
+                              <div class="input-group input-group-dynamic">
+                                {{ form_widget(f.phonenumber, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'onfocus': 'focused(this)',
+                                        'onfocusout': 'defocused(this)',
+                                    }
+                                }) }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="button-row d-flex mt-4">
+                              <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
+                            
+
+                        </div>
+                         
+                      </div>
+                      <div class="multisteps-form__panel pt-3 border-radius-xl bg-white" data-animation="FadeIn">
+                        <h5 class="font-weight-bolder">Media</h5>
+                        <div class="multisteps-form__content">
+                          <div class="row mt-3">
+                            <div class="col-12">
+                              <label class="form-control mb-0">Product images</label>
+                            
+                         
+                                {{ form_widget(f.imageFile, {'attr': {'class': 'form-control border dropzone dz-clickable', 'onfocus': 'focused(this)', 'onblur': 'defocused(this)'}}) }}
+                            </div>
+
+                            </div>
+                          </div>
+                          <div class="button-row d-flex mt-4">
+                            <button class="btn bg-gradient-light mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
+                            {{ form_widget(f.Add, {'attr': {'class': 'btn bg-gradient-dark ms-auto mb-0'}} ) }}
+
+                          </div>
+                        </div>
+                      </div>
+                        
+                      {{ form_widget(f.Add, {'attr': {'class': 'btn bg-gradient-dark ms-auto mb-0'}} ) }}
+
+                  </div>
+          
+          
+                   
+                      {{ form_end(f) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+
+    </main>
+  
+    <script type="text/javascript" id="">!function(d,g,e){d.TiktokAnalyticsObject=e;var a=d[e]=d[e]||[];a.methods="page track identify instances debug on off once ready alias group enableCookie disableCookie".split(" ");a.setAndDefer=function(b,c){b[c]=function(){b.push([c].concat(Array.prototype.slice.call(arguments,0)))}};for(d=0;d<a.methods.length;d++)a.setAndDefer(a,a.methods[d]);a.instance=function(b){b=a._i[b]||[];for(var c=0;c<a.methods.length;c++)a.setAndDefer(b,a.methods[c]);return b};a.load=function(b,c){var f="https://analytics.tiktok.com/i18n/pixel/events.js";
+        a._i=a._i||{};a._i[b]=[];a._i[b]._u=f;a._t=a._t||{};a._t[b]=+new Date;a._o=a._o||{};a._o[b]=c||{};c=document.createElement("script");c.type="text/javascript";c.async=!0;c.src=f+"?sdkid\x3d"+b+"\x26lib\x3d"+e;b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(c,b)};a.load("CC6UAQBC77U7GVKHLC4G");a.page()}(window,document,"ttq");</script>
+        <script>
+          if (document.getElementById('edit-deschiption')) {
+            var quill = new Quill('#edit-deschiption', {
+              theme: 'snow' // Specify theme in configuration
+            });
+          };
+      
+          if (document.getElementById('choices-category')) {
+            var element = document.getElementById('choices-category');
+            const example = new Choices(element, {
+              searchEnabled: false
+            });
+          };
+      
+          if (document.getElementById('choices-sizes')) {
+            var element = document.getElementById('choices-sizes');
+            const example = new Choices(element, {
+              searchEnabled: false
+            });
+          };
+      
+          if (document.getElementById('choices-currency')) {
+            var element = document.getElementById('choices-currency');
+            const example = new Choices(element, {
+              searchEnabled: false
+            });
+          };
+      
+          if (document.getElementById('choices-tags')) {
+            var tags = document.getElementById('choices-tags');
+            const examples = new Choices(tags, {
+              removeItemButton: true
+            });
+      
+            examples.setChoices(
+              [{
+                  value: 'One',
+                  label: 'Expired',
+                  disabled: true
+                },
+                {
+                  value: 'Two',
+                  label: 'Out of Stock',
+                  selected: true
+                }
+              ],
+              'value',
+              'label',
+              false,
+            );
+          }
+        </script>
+        <script src="{{ asset('asset/assets/js/plugins/choices.min.js') }}"></script>
+    <script src="{{ asset('asset/assets/js/plugins/dropzone.min.js') }}"></script>
+    <script src="{{ asset('asset/assets/js/plugins/quill.min.js') }}"></script>
+    <script src="{{ asset('asset/assets/js/plugins/multistep-form.js') }}"></script>
+  {% endblock %}
+ 
+        

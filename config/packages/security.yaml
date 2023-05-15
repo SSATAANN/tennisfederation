@@ -5,11 +5,15 @@ security:
         App\Entity\User:
             algorithm: auto
 
+
+
     providers:
         app_user_provider:
             entity:
                 class: App\Entity\User
                 property: email
+        # used to reload user from session & other features (e.g. switch_user)
+        # used to reload user from session & other features (e.g. switch_user)
 
     firewalls:
         dev:
@@ -17,13 +21,16 @@ security:
             security: false
         main:
             anonymous: lazy
-            provider: app_user_provider
             guard:
                 authenticators:
-                    - App\Security\LoginFormAAuthAuthenticator
+                    - App\Security\LoginAuth
             logout:
                 path: app_logout
-                target: /login
+                target: /
+                # where to redirect after logout
+                # target: app_any_route
+           
+            
 
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }

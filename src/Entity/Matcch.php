@@ -40,14 +40,14 @@ private $player2;
 
 
    /**
- * @ORM\ManyToOne(targetEntity="Player", cascade={"remove"})
+ * @ORM\ManyToOne(targetEntity="Player")
  * @ORM\JoinColumn(name="winner", referencedColumnName="id", onDelete="CASCADE")
  */
 
     private $winner;
 
   /**
- * @ORM\ManyToOne(targetEntity="Player", cascade={"remove"})
+ * @ORM\ManyToOne(targetEntity="Player")
  * @ORM\JoinColumn(name="loser", referencedColumnName="id", onDelete="CASCADE")
  */
 

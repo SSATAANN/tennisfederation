@@ -100,6 +100,7 @@ class PlayerController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
+        
         {
               /** @var UploadedFile $imageFile */
               $imageFile = $form->get('imageFile')->getData();

@@ -1,73 +1,212 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseAdmin.html.twig' %}
 
 {% block title %}Players!{% endblock %}
 
 {% block body %}
 
-    <div class="container" style ="  display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; text-align: center;">
-        <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <div class="mb-4">
-                    <span class="h5">Players Management</span>
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+  <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
+    <div class="container-fluid py-1 px-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+         
+          <li class="breadcrumb-item text-sm">
+            <a class="opacity-5 text-dark" href="javascript:;">Management </a>
+          </li>
+          <li class=" text-sm text-dark active" aria-current="page"> / List Players</li>
+        </ol>
+        <h6 class="font-weight-bolder mb-0">Players</h6>
+      </nav>
+      <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+        <a href="javascript:;" class="nav-link text-body p-0">
+          <div class="sidenav-toggler-inner">
+            <i class="sidenav-toggler-line"></i>
+            <i class="sidenav-toggler-line"></i>
+            <i class="sidenav-toggler-line"></i>
+          </div>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+          <div class="input-group input-group-outline">
+            <label class="form-label">Search here</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <ul class="navbar-nav  justify-content-end">
+          <li class="nav-item">
+            <a href="https://demos.creative-tim.com/material-dashboard-pro/pages/authentication/signin/illustration.html" class="nav-link text-body p-0 position-relative" target="_blank">
+              <i class="material-icons me-sm-1">
+                account_circle
+              </i>
+            </a>
+          </li>
+          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item px-3">
+            <a href="javascript:;" class="nav-link text-body p-0">
+              <i class="material-icons fixed-plugin-button-nav cursor-pointer">
+                settings
+              </i>
+            </a>
+          </li>
+          <li class="nav-item dropdown pe-2">
+            <a href="javascript:;" class="nav-link text-body p-0 position-relative" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="material-icons cursor-pointer">
+                notifications
+              </i>
+              <span class="position-absolute top-5 start-100 translate-middle badge rounded-pill bg-danger border border-white small py-1 px-2">
+                <span class="small">11</span>
+                <span class="visually-hidden">unread notifications</span>
+              </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end p-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
+              <li class="mb-2">
+                <a class="dropdown-item border-radius-md" href="javascript:;">
+                  <div class="d-flex align-items-center py-1">
+                    <span class="material-icons">email</span>
+                    <div class="ms-2">
+                      <h6 class="text-sm font-weight-normal my-auto">
+                        Check new messages
+                      </h6>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="mb-2">
+                <a class="dropdown-item border-radius-md" href="javascript:;">
+                  <div class="d-flex align-items-center py-1">
+                    <span class="material-icons">podcasts</span>
+                    <div class="ms-2">
+                      <h6 class="text-sm font-weight-normal my-auto">
+                        Manage podcast session
+                      </h6>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item border-radius-md" href="javascript:;">
+                  <div class="d-flex align-items-center py-1">
+                    <span class="material-icons">shopping_cart</span>
+                    <div class="ms-2">
+                      <h6 class="text-sm font-weight-normal my-auto">
+                        Payment successfully completed
+                      </h6>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+      
+              <div class="card-header pb-0">
+                <div class="d-lg-flex">
+                  <div>
+                    <h5 class="mb-0">All Players</h5>
+                    <p class="text-sm mb-0">
+                      A lightweight, extendable, dependency-free javascript HTML table plugin.
+                    </p>
+                  </div>
+                  <div class="ms-auto my-auto mt-lg-0 mt-4">
+                    <div class="ms-auto my-auto">
+                     
+                        <a href="{{ path('app_addplayer') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >+&nbsp; New Player</a>
+                     
+                  </div>
                 </div>
-                <a href="{{ path('app_addplayer') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >Add</a>
-                <div class="mb-5">
-                    <table class="table shadow-soft rounded">
-                       <thead>
+              </div>
+              <div class="card-body px-0 pb-0">
+                <div class="table-responsive">
+                  <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                    <div class="dataTable-top">
+                      
+                      <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text"></div>
+                    </div>
+                    <div class="dataTable-container">
+                      <table class="table table-flush dataTable-table" id="products-list">
+                        <thead class="thead-light">
                           <tr>
-                            <th class="border-0 text-center" scope="col" id="iD">ID</th>
-                            <th class="border-0 text-center" scope="col" id="images">Images</th>
-                            <th class="border-0 text-center" scope="col" id="First_Name">First Name</th>
-                            <th class="border-0 text-center" scope="col" id="Last_Name">Last Name</th>
-                            <th class="border-0 text-center" scope="col" id="Nationality">Nationality</th>
-                            <th class="border-0 text-center" scope="col" id="Birthday">Birthday</th>
-                            <th class="border-0 text-center" scope="col" id="Gender">Gender</th>
-                            <th class="border-0 text-center" scope="col" id="Height">Height</th>
-                            <th class="border-0 text-center" scope="col" id="Weight">Weight</th>
-                            <th class="border-0 text-center" scope="col" id="handedness">Handedness</th>
-                            <th class="border-0 text-center" scope="col" id="Ranking">Ranking</th>
-                            <th class="border-0 text-center" scope="col" id="Titles">Titles</th>
-                            <th class="border-0 text-center" scope="col" id="Bio">Bio</th>
-                            <th class="border-0 text-center" scope="col" id="Last_Name">Actions</th>
-                        </tr>
-                      </thead>
+                            <th  class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">ID</a>   
+                            </th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">IMAGE</a>   
+                            </th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">FIRST NAME</a>
+                            </th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">LAST NAME</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">NATIONALITY</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">BIRTHDAY</a>
+                            </th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">GENDER</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">HEIGHT</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">WEIGHT</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">HANDEDNESS</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">RANKING</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">TITLES</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">BIO</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">Action</a></th>
+                          </tr>
+                        </thead>
                         <tbody>
-                        {% for players in p  %}
-                        <tr>
-                            <td class="text-center"> {{ players.id }}</td>
-                            <td class="text-center"> <img class="class="card-img-top rounded-circle" src="{{ asset('uploads/player_images/' ~ players.getImage) }}"></td>
-                            <td class="text-center"> {{ players.firstName  }}</td>
-                            <td class="text-center"> {{ players.lastName  }}</td>
-                            <td class="text-center"> {{ players.nationality  }}</td>
-                            <td class="text-center"> {{ players.birthDate|date('Y-m-d') }}</td>
-                            <td class="text-center"> {{ players.gender  }}</td>
-                            <td class="text-center"> {{ players.height  }}</td>
-                            <td class="text-center"> {{ players.weight  }}</td>
-                            <td class="text-center"> {{ players.handedness }}</td>
-                            <td class="text-center"> {{ players.ranking  }}</td>
-                            <td class="text-center"> {{ players.titles  }}</td>
-                            <td class="text-center" 
-                            style="max-height: 50px; max-width: 100px;
+                            {% for players in p  %}
+                          <tr>
+                            <td class="text-center text-sm"> {{ players.id }}</td>
+                            <td class="text-center text-sm"> <img class="w-40" src="{{ asset('uploads/player_images/' ~ players.getImage) }}"></td>
+                            <td class=" text-center text-sm">{{ players.firstName  }}</td>
+                            <td class=" text-center text-sm">{{ players.lastName  }}</td>
+                            <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ players.nationality  }}</span></td>
+                            <td class=" text-center text-sm">{{ players.birthDate|date('Y-m-d') }}</td>
+                            <td class=" text-center text-sm">{{ players.gender }}</td>
+                            <td class=" text-center text-sm">{{ players.height }}</td>
+                            <td class=" text-center text-sm">{{ players.weight }}</td>
+                            <td class=" text-center text-sm">{{ players.handedness }}</td>
+                            <td class=" text-center text-sm">{{ players.ranking }}</td>
+                            <td class=" text-center text-sm">{{ players.titles }}</td>
+                            <td class=" text-center text-sm" style="max-height: 50px; max-width: 100px;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            white-space: nowrap;"> {{ players.bio  }}</td>
-                            <td  class="text-center"  style="display: flex;" > 
-                              <a href="{{ path('app_modplayer', {'id':players.id}) }}" class="btn btn-primary" style="  margin-right: 10px;">Edit</a>
-                              <a href="{{ path('app_supplayer', {'id':players.id}) }}" class="btn btn-primary" style="  margin-right: 10px;">Delete</a>
+                            white-space: nowrap;">{{ players.bio }}</td>
+                           
+                            <td class=" text-center text-sm">
+                             
+                              <a href="{{ path('app_modplayer', {'id':players.id}) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit player">
+                                <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                              </a>
+                              <a href="{{ path('app_supplayer', {'id':players.id}) }}" data-bs-toggle="tooltip" data-bs-original-title="Delete player">
+                                <i class="material-icons text-secondary position-relative text-lg">delete</i>
+                              </a>
                             </td>
-                        </tr>
-                       
-                        {% endfor %}
-                    </tbody>
-                  </table>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+      
+                      </table>
+                    </div>
+                    
+                  </div>
                 </div>
-              
-                
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      
+      </div>
+</main>
 
 {% endblock %}

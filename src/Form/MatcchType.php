@@ -22,7 +22,7 @@ class MatcchType extends AbstractType
         ->add('date', DateType::class, [
             'years' => range(date('Y')-100, date('Y')),
             'widget' => 'choice',
-            'label' => 'Birth Date',
+            'label' => 'Date',
             'attr' => [
                 'min' => '1920',
                 'max' => date('Y')

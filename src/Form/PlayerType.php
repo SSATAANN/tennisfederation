@@ -25,10 +25,11 @@ class PlayerType extends AbstractType
             ->add('lastName')
             ->add('nationality')
             ->add('birthDate', DateType::class, [
-                'years' => range(date('Y')-100, date('Y')),
+                'years' => range(date('Y')-70, date('Y')),
                 'widget' => 'choice',
                 'label' => 'Birth Date',
                 'attr' => [
+                    'type' =>'date',
                     'min' => '1920',
                     'max' => date('Y')
                 ]])    

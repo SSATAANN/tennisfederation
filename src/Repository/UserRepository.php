@@ -25,7 +25,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         parent::__construct($registry, User::class);
     }
+    public function getTotalUsers()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
+    public function getTotalUsersByRole($role)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%"'.$role.'"%')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     /**
      * @throws ORMException
      * @throws OptimisticLockException

@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -39,12 +42,97 @@ class User implements UserInterface
     private $password;
 
 
-  
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    private $imageFilename;
+    /**
+     * @var File|null
+     *
+     * @Assert\File(
+     *     maxSize="5M",
+     *     mimeTypes={"image/jpeg", "image/png", "image/gif"}
+     * )
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+
+
+    private $reset_token;
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private $phoneNumber;
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(?string $imageFilename): self
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
     public function getEmail(): ?string
     {
         return $this->email;
@@ -77,7 +165,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_VISITOR';
 
         return array_unique($roles);
     }
@@ -140,10 +228,19 @@ class User implements UserInterface
         $this->name = $name;
     }
 
-   
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->reset_token;
+    }
 
-
-
-
-
+    /**
+     * @param mixed $reset_token
+     */
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
+    }
 }

@@ -1,0 +1,211 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Players!{% endblock %}
+
+{% block body %}
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+  <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
+    <div class="container-fluid py-1 px-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+         
+          <li class="breadcrumb-item text-sm">
+            <a class="opacity-5 text-dark" href="javascript:;">Management </a>
+          </li>
+          <li class=" text-sm text-dark active" aria-current="page"> / List Players</li>
+        </ol>
+        <h6 class="font-weight-bolder mb-0">Players</h6>
+      </nav>
+      <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+        <a href="javascript:;" class="nav-link text-body p-0">
+          <div class="sidenav-toggler-inner">
+            <i class="sidenav-toggler-line"></i>
+            <i class="sidenav-toggler-line"></i>
+            <i class="sidenav-toggler-line"></i>
+          </div>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+          <div class="input-group input-group-outline">
+            <label class="form-label">Search here</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <ul class="navbar-nav  justify-content-end">
+          <li class="nav-item">
+            <a href="https://demos.creative-tim.com/material-dashboard-pro/pages/authentication/signin/illustration.html" class="nav-link text-body p-0 position-relative" target="_blank">
+              <i class="material-icons me-sm-1">
+                account_circle
+              </i>
+            </a>
+          </li>
+          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item px-3">
+            <a href="javascript:;" class="nav-link text-body p-0">
+              <i class="material-icons fixed-plugin-button-nav cursor-pointer">
+                settings
+              </i>
+            </a>
+          </li>
+          <li class="nav-item dropdown pe-2">
+            <a href="javascript:;" class="nav-link text-body p-0 position-relative" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="material-icons cursor-pointer">
+                notifications
+              </i>
+              <span class="position-absolute top-5 start-100 translate-middle badge rounded-pill bg-danger border border-white small py-1 px-2">
+                <span class="small">11</span>
+                <span class="visually-hidden">unread notifications</span>
+              </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end p-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
+              <li class="mb-2">
+                <a class="dropdown-item border-radius-md" href="javascript:;">
+                  <div class="d-flex align-items-center py-1">
+                    <span class="material-icons">email</span>
+                    <div class="ms-2">
+                      <h6 class="text-sm font-weight-normal my-auto">
+                        Check new messages
+                      </h6>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="mb-2">
+                <a class="dropdown-item border-radius-md" href="javascript:;">
+                  <div class="d-flex align-items-center py-1">
+                    <span class="material-icons">podcasts</span>
+                    <div class="ms-2">
+                      <h6 class="text-sm font-weight-normal my-auto">
+                        Manage podcast session
+                      </h6>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item border-radius-md" href="javascript:;">
+                  <div class="d-flex align-items-center py-1">
+                    <span class="material-icons">shopping_cart</span>
+                    <div class="ms-2">
+                      <h6 class="text-sm font-weight-normal my-auto">
+                        Payment successfully completed
+                      </h6>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+      
+              <div class="card-header pb-0">
+                <div class="d-lg-flex">
+                  <div>
+                    <h5 class="mb-0">All Players</h5>
+                    <p class="text-sm mb-0">
+                      A lightweight, extendable, dependency-free javascript HTML table plugin.
+                    </p>
+                  </div>
+                  <div class="ms-auto my-auto mt-lg-0 mt-4">
+                    <div class="ms-auto my-auto">
+                     
+                        <a href="{{ path('app_addplayer') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >+&nbsp; New Player</a>
+                     
+                  </div>
+                </div>
+              </div>
+              <div class="card-body px-0 pb-0">
+                <div class="table-responsive">
+                  <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                    <div class="dataTable-top">
+                      
+                      <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text"></div>
+                    </div>
+                    <div class="dataTable-container">
+                      <table class="table table-flush dataTable-table" id="products-list">
+                        <thead class="thead-light">
+                          <tr>
+                            <th  class="border-0 text-center" scope="col"  colspan="1"><a href="#" class="dataTable-sorter">ID</a>   
+                            </th>
+                            <th class="border-0 text-center" scope="col"   colspan="1"><a href="#" class="dataTable-sorter">IMAGE</a>   
+                            </th>
+                            <th class="border-0 text-center" scope="col"  colspan="1"><a href="#" class="dataTable-sorter">EMAIL</a>
+                            </th>
+                            <th class="border-0 text-center" scope="col"  colspan="1"><a href="#" class="dataTable-sorter">FULL NAME</a></th>
+                            <th class="border-0 text-center" scope="col"  colspan="1"><a href="#" class="dataTable-sorter">ROLE</a></th>
+                            <th class="border-0 text-center" scope="col"  colspan="1"><a href="#" class="dataTable-sorter">GENDER</a>
+                            </th>
+                            <th class="border-0 text-center" scope="col"  colspan="1"><a href="#" class="dataTable-sorter">PHONE</a></th>
+                          
+                            <th class="border-0 text-center" scope="col"  colspan="1"><a href="#" class="dataTable-sorter">Action</a></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for users in u  %}
+                            <tr>
+                              <td class="text-center text-sm"> {{ users.id }}</td>
+                              <td class="text-center text-sm"> <img class="w-10" src="{{ asset('uploads/user_images/' ~ users.getImage) }}"></td>
+                              <td class=" text-center text-sm">{{ users.email  }}</td>
+                              <td class=" text-center text-sm">{{ users.name  }}</td>
+                              <td class="text-center text-sm">
+                                  {% if 'ROLE_ADMIN' in users.roles %}
+                                    <span class="badge badge-danger badge-sm">Admin</span>
+                                  {% elseif 'ROLE_VISITOR' in users.roles %}
+                                    <span class="badge badge-primary badge-sm">VISITOR</span>
+                                    {% elseif 'ROLE_PLAYER' in users.roles %}
+                                    <span class="badge badge-primary badge-sm">PLAYER</span>
+                                    {% elseif 'ROLE_REFEREE' in users.roles %}
+                                    <span class="badge badge-primary badge-sm">REFEREE</span>
+                                  {% endif %}
+                                </td>
+                                
+                              
+                              <td class=" text-center text-sm">{{ users.gender }}</td>
+                              <td class=" text-center text-sm">{{ users.phonenumber }}</td>
+                             
+                              <td class=" text-center text-sm">
+                             
+                                <a href="{{ path('app_modvisitor', {'id':users.id}) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit player">
+                                  <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                                </a>
+                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Delete player">
+                                  <i class="material-icons text-secondary position-relative text-lg">delete</i>
+                                </a>
+                              </td>
+                             
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+      
+                      </table>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+</main>
+
+{% endblock %}

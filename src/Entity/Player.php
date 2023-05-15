@@ -89,7 +89,7 @@ class Player
     private $titles;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $bio;
 
