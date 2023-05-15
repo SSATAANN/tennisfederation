@@ -39,11 +39,12 @@
     <form  method="post" class="text-start">
     <div class="input-group input-group-outline my-3">
     <label class="form-label">Email</label>
-    <input class="form-control" id="email" value="{{ last_username }}" name="email"  type="text" >
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     </div>
     <div class="input-group input-group-outline mb-3">
     <label class="form-label">Password</label>
-    <input class="form-control" id="password" name="password"  type="password"  required="true">
+   <input class="form-control" id="password" name="password" type="password" required="true" autocomplete="current-password" onfocus="focused(this)" onfocusout="defocused(this)">
+
     </div>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     <div class="form-check form-switch d-flex align-items-center mb-3">

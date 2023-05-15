@@ -161,7 +161,19 @@
                             </div>
                           </div>
                           <div class="row mt-3">
-
+                            <div class="col-12 col-sm-6  mt-3">
+                              <label for="exampleFormControlInput1" class="form-label">Role</label>
+                              <div class="input-group input-group-dynamic">
+                                  
+                                  {{ form_widget(f.password, {
+                                      'attr': {
+                                          'class': 'form-control',
+                                          'onfocus': 'focused(this)',
+                                          'onfocusout': 'defocused(this)',
+                                      }
+                                  }) }}
+                              </div>
+                          </div>
                                 
                               <div class="col-12 col-sm-6  mt-3">
                                 <label for="exampleFormControlInput1" class="form-label">Role</label>

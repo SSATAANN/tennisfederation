@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Entity\User;
+use App\Form\VisitorType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -33,7 +34,7 @@ class VisitorController extends AbstractController
     {
         $user = new User();
 
-        $form = $this->createForm(PlayerType::class,$user);
+        $form = $this->createForm(UserType::class,$user);
 
         $form->handleRequest($request);
 
@@ -62,9 +63,9 @@ class VisitorController extends AbstractController
             $em->persist($user); //add
             $em->flush();
 
-            return $this->redirectToRoute('app_player');
+            return $this->redirectToRoute('app_visitor');
         }
-        return $this->render('player/createPlayer.html.twig',['f'=>$form->createView()]);
+        return $this->render('visitor/createVisitor.html.twig',['f'=>$form->createView()]);
     }
     
     /**
@@ -74,7 +75,7 @@ class VisitorController extends AbstractController
     {
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($id);
 
-        $form = $this->createForm(UserType::class,$user);
+        $form = $this->createForm(VisitorType::class,$user);
 
         $form->handleRequest($request);
 

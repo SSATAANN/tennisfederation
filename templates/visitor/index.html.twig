@@ -127,7 +127,7 @@
                   <div class="ms-auto my-auto mt-lg-0 mt-4">
                     <div class="ms-auto my-auto">
                      
-                        <a href="{{ path('app_addplayer') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >+&nbsp; New Player</a>
+                        <a href="{{ path('app_addvisitor') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >+&nbsp; New Player</a>
                      
                   </div>
                 </div>
@@ -166,15 +166,17 @@
                               <td class=" text-center text-sm">{{ users.email  }}</td>
                               <td class=" text-center text-sm">{{ users.name  }}</td>
                               <td class="text-center text-sm">
-                                  {% if 'ROLE_ADMIN' in users.roles %}
-                                    <span class="badge badge-danger badge-sm">Admin</span>
-                                  {% elseif 'ROLE_VISITOR' in users.roles %}
-                                    <span class="badge badge-primary badge-sm">VISITOR</span>
-                                    {% elseif 'ROLE_PLAYER' in users.roles %}
-                                    <span class="badge badge-primary badge-sm">PLAYER</span>
-                                    {% elseif 'ROLE_REFEREE' in users.roles %}
-                                    <span class="badge badge-primary badge-sm">REFEREE</span>
-                                  {% endif %}
+                                {% if 'ROLE_ADMIN' in users.roles %}
+                                <span class="badge badge-danger badge-sm">ADMIN</span>
+                                {% elseif 'ROLE_REFEREE' in users.roles %}
+                                <span class="badge badge-primary badge-sm">REFEREE</span>
+                            {% elseif 'ROLE_PLAYER' in users.roles %}
+                                <span class="badge badge-primary badge-sm">PLAYER</span>
+                           
+                                {% elseif 'ROLE_VISITOR' in users.roles %}
+                                <span class="badge badge-primary badge-sm">VISITOR</span>
+                            {% endif %}
+                            
                                 </td>
                                 
                               
