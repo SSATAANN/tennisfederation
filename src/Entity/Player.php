@@ -12,16 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Player
 {
-    /**
+     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
-    /**
- * @ORM\Column(type="string", length=255, nullable=true)
- */
-  
+ 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
