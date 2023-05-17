@@ -1,0 +1,22 @@
+{# templates/reclamation/details.html.twig #}
+
+<h1>Détails de la réclamation</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <td>{{ reclamation.id }}</td>
+    </tr>
+    <tr>
+        <th>Sujet</th>
+        <td>{{ reclamation.sujet }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{ reclamation.description }}</td>
+    </tr>
+    <tr>
+        <th>Auteur</th>
+        <td>{{ reclamation.user.username }}</td>
+    </tr>
+</table>

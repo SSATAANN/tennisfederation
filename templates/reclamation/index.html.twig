@@ -1,0 +1,24 @@
+{# templates/reclamation/index.html.twig #}
+
+<h1>Liste des réclamations</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Sujet</th>
+            <th>Description</th>
+            <th>Auteur</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.id }}</td>
+                <td>{{ reclamation.sujet }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>{{ reclamation.user.username }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
