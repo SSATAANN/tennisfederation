@@ -22,7 +22,13 @@ class MatcchRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Matcch::class);
     }
-
+    public function getTotalMatches()
+    {
+        return $this->createQueryBuilder('m')
+            ->select('COUNT(m.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     /**
      * @throws ORMException
      * @throws OptimisticLockException

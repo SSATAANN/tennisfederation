@@ -6,6 +6,7 @@ use App\Entity\Reclamation;
 use App\Controller\ReclamationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ReclamationController extends AbstractController
@@ -39,6 +40,19 @@ class ReclamationController extends AbstractController
             'reclamation' => $reclamation,
         ]);
     }
+     /**
+     * @Route("/supPComplaint/{id}", name="app_supPComplaint")
+     */
+    public function suppressionPlayer(Reclamation $reclamation): Response
+{
+    $em = $this->getDoctrine()->getManager();
+    
+
+    $em->remove($reclamation);
+    $em->flush();
+
+    return $this->redirectToRoute('reclamation_index');
+}
 }
 
 

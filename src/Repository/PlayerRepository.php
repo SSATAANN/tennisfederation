@@ -22,7 +22,13 @@ class PlayerRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Player::class);
     }
-
+    public function getTotalPlayers()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     /**
      * @throws ORMException
      * @throws OptimisticLockException

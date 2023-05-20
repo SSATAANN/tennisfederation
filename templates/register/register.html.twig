@@ -1,134 +1,156 @@
-{% extends 'base.html.twig' %}
+{% extends 'login.html.twig' %}
 
 
-{% block header %}
 
-{% endblock %}
-
-{% block sidebar %}
-
-{% endblock %}
-
-{% block footer %}
-
-{% endblock %}
 {% block body %}
-<div class="section section-lg pt-0 " style="display: flex; justify-content: center; align-items: center;">
-    <div class="container mt-5 text-center">
-        <div class="col-12 col-md-6 col-lg-5 mb-5 mb-lg-0">
-            <div class="card bg-primary shadow-soft border-light p-4">
-<div class="card-body">
-    {{ form_start(form, {'class': 'row g-3'}) }}
-    <!-- Form -->
-        <!-- Form -->
-        <div class="row" > 
-            <div class="form-group col-md-6">
-                <label for="name">Your Name</label>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><span class="fas fa-envelope"></span></span>
-                    </div>
-                    {{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
-                </div>
-            </div>
-        <!-- End of Form -->
-       
-        <!-- Form -->
-                <div class="form-group col-md-6">
-                    <label for="phone">Your Phone</label>
-                    <div class="input-group mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><span class="fas fa-envelope"></span></span>
-                        </div>
-                        {{ form_widget(form.phonenumber,{'attr':{'class':'form-control'}}) }}
-                    </div>
-                </div>
-    </div>
-        <!-- End of Form -->
-        <!-- Form -->
-       <div class="row" > 
-        <div class="form-group col-md-12">
-            <label for="email">Your Email</label>
-            <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><span class="fas fa-envelope"></span></span>
-                </div>
-                {{ form_widget(form.email,{'attr':{'class':'form-control'}}) }}
-            </div>
-        </div>
-    </div>
-        <!-- End of Form -->
-        <!-- Form -->
-        <div class="row" > 
-            <div class="form-group col-md-6">
-                <label for="gender">Your Gender</label>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><span class="fas fa-envelope"></span></span>
-                    </div>
-                    {{ form_widget(form.gender,{'attr':{'class':'form-control'}}) }}
-                </div>
-            </div>
+<main class="main-content mt-0 ps">
+    <div class="page-header align-items-start min-vh-100"
+      style="background-image: url({{ asset('assets/img/signup_bg3.jpg') }});">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container my-auto">
+      <div class="row">
+      <div class="col-lg-6 col-md-8 col-12 mx-auto">
+      <div class="card z-index-0 fadeIn3 fadeInBottom">
+      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
 
-            <div class="form-group col-md-6">
-                <label for="image">Your Image</label>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><span class="fas fa-envelope"></span></span>
-                    </div>
-                    {{ form_widget(form.imageFile, {'attr': {'class': 'custom-file-input'} }) }}
+                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Register</h4>
+                  <div class="row mt-3">
+                    {% if app.user == null %}
+                    <p class="text-white mt-4 text-sm text-center">
+                        Sign Up here 
+                    </p>
+                    {% endif %}
+                  
+                   
+                  
+                    {% if app.user %}
+                    <p class="text-white mt-4 text-sm text-center">
+                        You are logged in as {{ app.user.name }} ,   <a href="{{ path('app_logout') }}"><strong class="text-white">LOGOUT</strong> </a>
+                    </p>
+                    
+                    
+                    {% endif %}
                 </div>
+                </div>
+              </div>
+              <div class="row px-xl-5 px-sm-4 px-3">
+                
+              </div>
+              <div class="card-body">
+                {{ form_start(form, {'class': 'row g-3'}) }}
+                <div class="row mt-3">
+                    <div class="col-12 col-sm-6">
+                      <div class="input-group input-group-dynamic">
+                        <label for="exampleFormControlInput1" class="form-label">Name</label>
+                        {{ form_widget(form.name, {
+                            'attr': {
+                                'class': 'form-control',
+                                'onfocus': 'focused(this)',
+                                'onfocusout': 'defocused(this)',
+                            }
+                        }) }}
+                        
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                      <div class="input-group input-group-dynamic">
+                        <label for="exampleFormControlInput1" class="form-label">Phone</label>
+                        {{ form_widget(form.phonenumber, {
+                            'attr': {
+                                'class': 'form-control',
+                                'onfocus': 'focused(this)',
+                                'onfocusout': 'defocused(this)',
+                            }
+                        }) }}
+                      </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 col-sm-6">
+                      <div class="input-group input-group-dynamic">
+                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                        {{ form_widget(form.email, {
+                            'attr': {
+                                'class': 'form-control',
+                                'onfocus': 'focused(this)',
+                                'onfocusout': 'defocused(this)',
+                            }
+                        }) }}
+                        
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                      <div class="input-group input-group-dynamic">
+                        {{ form_widget(form.gender, {
+                            'attr': {
+                                'class': 'form-control',
+                                'onfocus': 'focused(this)',
+                                'onfocusout': 'defocused(this)',
+                            }
+                        }) }}
+                      </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 col-sm-6">
+                      <div class="input-group input-group-dynamic">
+                        <label for="exampleFormControlInput1" class="form-label">Password</label>
+                        {{ form_widget(form.password.first, {
+                            'attr': {
+                                'class': 'form-control',
+                                'onfocus': 'focused(this)',
+                                'onfocusout': 'defocused(this)',
+                            }
+                        }) }}
+                        
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                      <div class="input-group input-group-dynamic">
+                        <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+
+                        {{ form_widget(form.password.second, {
+                            'attr': {
+                                'class': 'form-control',
+                                'onfocus': 'focused(this)',
+                                'onfocusout': 'defocused(this)',
+                            }
+                        }) }}
+                      </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    
+                            {{ form_widget(form.imageFile, {'attr': {'class': 'form-control border dropzone dz-clickable', 'onfocus': 'focused(this)', 'onblur': 'defocused(this)'}}) }}
+                </div>
+                
+                {{ form_row(form.roles, { 'label': false, 'attr': {'style': 'display: none;'} }) }}
+                {{ form_row(form.Add, { 'label': false, 'attr': {'style': 'display: none;'} }) }}
+                   
+                
+                
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign up</button>
+                </div>
+                <div class="col-12 text-sm mt-3 mb-0 text-center">
+                  <p>Already have an account? <a href="{{ path('app_login') }}"class="text-primary text-gradient font-weight-bold">Login</a></p>
+                  
+                </div>
+                {{ form_end(form) }}
+              </div>
             </div>
+          </div>
         </div>
-        <!-- End of Form -->
-        <div class="form-group">
-            <!-- Form -->
-            <div class="row" > 
-                <div class="form-group col-md-12">
-                    <label for="password">Your password</label>
-                    <div class="input-group mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><span class="fas fa-envelope"></span></span>
-                        </div>
-                        {{ form_widget(form.password.first,{'attr':{'class':'form-control'}}) }}
-                    </div>
-                </div>
-            </div>
-            <!-- End of Form -->
-            <!-- Form -->
-            <div class="row" > 
-                <div class="form-group col-md-12">
-                    <label for="confirmpassword">Confirm Password</label>
-                    <div class="input-group mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><span class="fas fa-envelope"></span></span>
-                        </div>
-                        {{ form_widget(form.password.second,{'attr':{'class':'form-control'}}) }}
-                    </div>
-                </div>
-            </div>
-            <!-- End of Form -->
-            
-            <div class="form-check mb-4">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck634">
-                <label class="form-check-label" for="defaultCheck634">
-                    I agree to the <a href="#">terms and conditions</a>
-                </label>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-block btn-primary">Sign in</button>
-        {{ form_end(form) }}<!-- End floating Labels Form -->
-    
-    <div class="d-block d-sm-flex justify-content-center align-items-center mt-4">
-        <span class="font-weight-normal">
-            Already have an account?
-            <a href="{{ path('app_login') }}" class="font-weight-bold">Login here</a>
-        </span>
+      </div>
     </div>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+      <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+    </div>
+    <div class="ps__rail-y" style="top: 0px; right: 0px;">
+      <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+    </div>
+  </main>
+  
    
 {% endblock %}

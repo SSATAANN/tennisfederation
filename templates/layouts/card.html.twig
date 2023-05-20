@@ -1,40 +1,28 @@
 
-                <div class="col-12 col-md-6 col-lg-4 mb-4 mb-md-5">
-                    <div class="profile-card mb-5">
-                        <div class="card bg-primary shadow-soft border-light">
-                            <div class="profile-image bg-primary shadow-inset border border-light rounded-circle p-3 ml-3 mt-n5">
-                                <img src="{{ asset('uploads/player_images/' ~ playerCard.getImage) }}" class="card-img-top rounded-circle" alt="{{ playerCard.firstName }} {{ playerCard.lastName }}">
-                            </div>
-                            <div class="card-body">
-                                <h3 class="h5 mb-2">{{ playerCard.firstName }}</h3>
-                                <span class="h6 font-weight-normal text-gray mb-3">{{ playerCard.lastName }}</span>
-                                <ul class="list-unstyled d-flex my-3">
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="facebook social link" class="icon icon-xs icon-facebook mr-3">
-                                            <span class="fab fa-facebook-f"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="twitter social link" class="icon icon-xs icon-twitter mr-3">
-                                            <span class="fab fa-twitter"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="slack social link" class="icon icon-xs icon-slack mr-3">
-                                            <span class="fab fa-slack-hash"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="dribbble social link" class="icon icon-xs icon-dribbble mr-3">
-                                            <span class="fab fa-dribbble"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <p class="card-text">{{ playerCard.bio }}</p>
-                                <button class="btn btn-primary" type="button">View Player</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-               
+<div class="col-lg-4 ms-auto me-auto p-lg-4 mt-lg-0 mt-4">
+  <div class="rotating-card-container">
+     <div class="card card-rotate card-background card-background-mask-primary shadow-primary mt-md-0 mt-5 mb-5">
+        
+        <div class="front front-background" style="background-image: url({{ asset('assetClient/assets/img/roger_federer.png') }}); background-size: cover;">
+           <div class="card-body py-10 text-center">
+              <h3 class="text-white" style="font-size: 150px; position: absolute; bottom: 0px; right: 10px;">{{ playerCard.ranking }}</h3>
+              <h3 class="text-white opacity-8" style="font-size: 40px; position: absolute; bottom: 40px; right: 110px;">RANK</h3>
+              <h2 class="text-white mb-5">{{ playerCard.firstName }} {{ playerCard.lastName }}</h2>
+              
+              <h5 class="text-white">Nationality </h5><p class="text-white opacity-8">{{ playerCard.nationality }}</p>
+             
+              <h5 class="text-white">Bio </h5><p class="text-white opacity-8"> {{ playerCard.bio }}</p>
+           </div>
+        </div>
+        
+        <div class="back back-background" style="background-image: url({{ asset('uploads/player_images/' ~ playerCard.image) }}); background-size: cover;">
+           <div class="card-body pt-7 text-center">
+              <h3 class="text-white">Discover More</h3>
+              <p class="text-white opacity-8">Discover a diverse lineup of talented players and delve into their profiles, unlocking a wealth of information and insights</p>
+              <a href="https://demos.creative-tim.com/sections/page-sections/hero-sections.html" target="_blank" class="btn btn-white btn-sm w-50 mx-auto mt-3">See All Players</a>
+           </div>
+        </div>
+        
+     </div>
+  </div>
+</div>

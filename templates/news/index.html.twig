@@ -14,9 +14,9 @@
           <li class="breadcrumb-item text-sm">
             <a class="opacity-5 text-dark" href="javascript:;">Management </a>
           </li>
-          <li class=" text-sm text-dark active" aria-current="page"> / List Complaints</li>
+          <li class=" text-sm text-dark active" aria-current="page"> / List Players</li>
         </ol>
-        <h6 class="font-weight-bolder mb-0">Complaints</h6>
+        <h6 class="font-weight-bolder mb-0">Players</h6>
       </nav>
       <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
         <a href="javascript:;" class="nav-link text-body p-0">
@@ -119,12 +119,18 @@
               <div class="card-header pb-0">
                 <div class="d-lg-flex">
                   <div>
-                    <h5 class="mb-0">All Complaints</h5>
+                    <h5 class="mb-0">All Players</h5>
                     <p class="text-sm mb-0">
                       A lightweight, extendable, dependency-free javascript HTML table plugin.
                     </p>
                   </div>
-                  
+                  <div class="ms-auto my-auto mt-lg-0 mt-4">
+                    <div class="ms-auto my-auto">
+                     
+                        <a href="{{ path('app_addNew') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >+&nbsp; New Player</a>
+                     
+                  </div>
+                </div>
               </div>
               <div class="card-body px-0 pb-0">
                 <div class="table-responsive">
@@ -139,36 +145,42 @@
                           <tr>
                             <th  class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">ID</a>   
                             </th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">SUBJECT</a>   
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">IMAGE</a>   
                             </th>
-                            
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">DESCRIPTION</a>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">TITLE</a>
                             </th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">EMAIL</a>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">CONTENT</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">CREATED AT</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">UPDATED AT</a>
                             </th>
-                            
+                          
                             <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">Action</a></th>
                           </tr>
                         </thead>
                         <tbody>
-                            {% for reclamation in reclamations %}
-                                <tr>
-                                    <td class="text-center text-sm">{{ reclamation.id }}</td>
-                                    <td class="text-center text-sm">{{ reclamation.sujet }}</td>
-                                    <td class="text-center text-sm">{{ reclamation.description }}</td>
-                                    <td class="text-center text-sm">{{ reclamation.user.username }}</td>
-
-                                    
-                                    <td class="text-center text-sm">
-                                        
-                                          <a href="{{ path('app_supPComplaint', {'id':reclamation.id}) }}" data-bs-toggle="tooltip" data-bs-original-title="Delete Complaint">
-                                            <i class="material-icons text-secondary position-relative text-lg">delete</i>
-                                          </a>
-                                </td>
-                                    
-                                </tr>
-                            {% endfor %}
+                            {% for news in n  %}
+                          <tr>
+                            <td class="text-center text-sm"> {{ news.id }}</td>
+                            <td class="text-center text-sm"> <img class="w-10" src="{{ asset('uploads/news_images/' ~ news.getImage) }}"></td>
+                            <td class=" text-center text-sm">{{ news.title  }}</td>
+                            <td class=" text-center text-sm">{{ news.content  }}</td>
+                            
+                            <td class=" text-center text-sm">{{ news.createdAt|date('Y-m-d') }}</td>
+                            <td class=" text-center text-sm">{{ news.updatedAt|date('Y-m-d') }}</td>
+                            
+                            
                            
+                            <td class=" text-center text-sm">
+                             
+                              <a href="{{ path('app_modNew', {'id':news.id}) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit News">
+                                <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                              </a>
+                              <a href="{{ path('app_supNew', {'id':news.id}) }}" data-bs-toggle="tooltip" data-bs-original-title="Delete News">
+                                <i class="material-icons text-secondary position-relative text-lg">delete</i>
+                              </a>
+                            </td>
+                          </tr>
+                          {% endfor %}
                         </tbody>
       
                       </table>

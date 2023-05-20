@@ -96,13 +96,22 @@ class LoginAuth extends AbstractFormLoginAuthenticator implements PasswordAuthen
         }
 
         $user = $token->getUser();
+        $roles = $user->getRoles();
 
-        if(in_array('ROLE_ADMIN',$user->getRoles(),true)) {
+        if(in_array('ROLE_ADMIN',$roles,true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_admin'));
-        }
+        } 
+        elseif (in_array('ROLE_PLAYER', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_player_client'));
+        } 
+        elseif (in_array('ROLE_REFEREE', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('Referee'));
+        } 
+        else {
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         return new RedirectResponse($this->urlGenerator->generate('Client'));
+        }
     }
 
     protected function getLoginUrl()
