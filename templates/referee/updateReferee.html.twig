@@ -11,9 +11,9 @@
               <li class="breadcrumb-item text-sm">
                 <a class="opacity-5 text-dark" href="javascript:;">Management </a>
               </li>
-              <li class=" text-sm text-dark active" aria-current="page"> / Add Match</li>
+              <li class=" text-sm text-dark active" aria-current="page"> / Add Player</li>
             </ol>
-            <h6 class="font-weight-bolder mb-0">Matches</h6>
+            <h6 class="font-weight-bolder mb-0">Players</h6>
           </nav>
           <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
             <a href="javascript:;" class="nav-link text-body p-0">
@@ -111,17 +111,17 @@
         <div class="container-fluid py-4">
             <div class="row min-vh-80">
               <div class="col-lg-8 col-md-10 col-12 m-auto">
-                <h3 class="mt-3 mb-0 text-center">Add new Match</h3>
+                <h3 class="mt-3 mb-0 text-center">Add new Player</h3>
                 <p class="lead font-weight-normal opacity-8 mb-7 text-center">This information will let us know more about you.
                 </p>
                 <div class="card">
                   <div class="card-header p-0 position-relative mt-n5 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                       <div class="multisteps-form__progress">
-                        <button class="multisteps-form__progress-btn js-active" type="button" title="Match Info">
-                          <span>1. Match Info</span>
+                        <button class="multisteps-form__progress-btn js-active" type="button" title="Player Info">
+                          <span>1. Player Info</span>
                         </button>
-                      
+                        <button class="multisteps-form__progress-btn" type="button" title="Media">2. Image</button>
                        
                       </div>
                     </div>
@@ -132,56 +132,41 @@
                       <div class="multisteps-form__panel pt-3 border-radius-xl bg-white js-active" data-animation="FadeIn">
                         <h5 class="font-weight-bolder">Player Information</h5>
                         <div class="multisteps-form__content">
-                            <div class="row mt-3">
-                                <div class="col-12" >
-                                    <label for="{{ f.date.vars.id }}" class="form-label">Date</label>
-                                    <div class="input-group input-group-static my-3">
-                                        <div class="row col-12">
-                                            <div class="col-md-4">
-                                                {{ form_widget(f.date.day,  {
-                                                    'attr': {
-                                                      
-                                                        'class': 'form-control',
-                                                        'placeholder': 'DD',
-                                                        'onfocus': 'focused(this)',
-                                                        'onfocusout': 'defocused(this)',
-                                                    }
-                                                }) }}
-                                            </div>
-                                            <div class="col-md-4">
-                                                {{ form_widget(f.date.month, {
-                                                    'attr': {
-                                                      
-                                                        'class': 'form-control',
-                                                        'placeholder': 'MM',
-                                                        'onfocus': 'focused(this)',
-                                                        'onfocusout': 'defocused(this)',
-                                                    }
-                                                }) }}
-                                            </div>
-                                            <div class="col-md-4">
-                                                {{ form_widget(f.date.year, {
-                                                    'attr': {
-                                                      
-                                                        'class': 'form-control',
-                                                        'placeholder': 'YYYY',
-                                                        'onfocus': 'focused(this)',
-                                                        'onfocusout': 'defocused(this)',
-                                                    }
-                                                }) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                          <div class="row mt-3">
+                            <div class="col-12 col-sm-6">
+                              <div class="input-group input-group-dynamic">
+                                <label for="exampleFormControlInput1" class="form-label">First Name</label>
+                                {{ form_widget(f.firstName, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'onfocus': 'focused(this)',
+                                        'onfocusout': 'defocused(this)',
+                                    }
+                                }) }}
+                                
+                              </div>
                             </div>
+                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                              <div class="input-group input-group-dynamic">
+                                <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                                {{ form_widget(f.lastName, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'onfocus': 'focused(this)',
+                                        'onfocusout': 'defocused(this)',
+                                    }
+                                }) }}
+                              </div>
+                            </div>
+                          </div>
                          
                         
                         
                             <div class="row mt-3">
                                 <div class="col-12 ">
                                     <div class="input-group input-group-dynamic">
-                                        <label for="exampleFormControlInput1" class="form-label">Tournament</label>
-                                        {{ form_widget(f.tournament, {
+                                        <label for="exampleFormControlInput1" class="form-label">Nationality</label>
+                                        {{ form_widget(f.nationality, {
                                             'attr': {
                                                 'class': 'form-control',
                                                 'onfocus': 'focused(this)',
@@ -190,99 +175,38 @@
                                         }) }}
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-6  mt-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Player 1</label>
-                                    <div class="input-group input-group-dynamic">
-                                        
-                                        {{ form_widget(f.player1, {
-                                            'attr': {
-                                                'class': 'form-control',
-                                                'onfocus': 'focused(this)',
-                                                'onfocusout': 'defocused(this)',
-                                            }
-                                        }) }}
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6  mt-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Player 2</label>
-                                    <div class="input-group input-group-dynamic">
-                                        
-                                        {{ form_widget(f.player2, {
-                                            'attr': {
-                                                'class': 'form-control',
-                                                'onfocus': 'focused(this)',
-                                                'onfocusout': 'defocused(this)',
-                                            }
-                                        }) }}
-                                    </div>
-                                </div>
+                            
+                             
                                 
                             </div>
-                          <div class="row mt-3">
-                            <div class="col-12 col-sm-6">
-                                <label for="exampleFormControlInput1" class="form-label">Winner</label>
-                              <div class="input-group input-group-dynamic">
-                                {{ form_widget(f.winner, {
-                                    'attr': {
-                                        
-                                        'class': 'form-control',
-                                        'onfocus': 'focused(this)',
-                                        'onfocusout': 'defocused(this)',
-                                    }
-                                }) }}
-                              </div>
-                            </div>
-                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                                <label for="exampleFormControlInput1" class="form-label">Loser</label>
-                              <div class="input-group input-group-dynamic">
-                                {{ form_widget(f.loser, {
-                                    'attr': {
-                                        'class': 'form-control',
-                                        'onfocus': 'focused(this)',
-                                        'onfocusout': 'defocused(this)',
-                                    }
-                                }) }}
-                              </div>
-                            </div>
+                          
+
+                          <div class="button-row d-flex mt-4">
+                            <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
                           </div>
+                        </div>
+                      </div>
+          
+                      <div class="multisteps-form__panel pt-3 border-radius-xl bg-white" data-animation="FadeIn">
+                        <h5 class="font-weight-bolder">Media</h5>
+                        <div class="multisteps-form__content">
                           <div class="row mt-3">
-                            <div class="col-12 col-sm-6">
-                                <label for="exampleFormControlInput1" class="form-label">Result</label>
-                              <div class="input-group input-group-dynamic">
-                                {{ form_widget(f.resultat, {
-                                    'attr': {
-                                        
-                                        'class': 'form-control',
-                                        'onfocus': 'focused(this)',
-                                        'onfocusout': 'defocused(this)',
-                                    }
-                                }) }}
-                              </div>
+                            <div class="col-12">
+                              <label class="form-control mb-0">Product images</label>
+                            
+                         
+                                {{ form_widget(f.imageFile, {'attr': {'class': 'form-control border dropzone dz-clickable', 'onfocus': 'focused(this)', 'onblur': 'defocused(this)'}}) }}
                             </div>
-                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                                <label for="exampleFormControlInput1" class="form-label">Status</label>
-                              <div class="input-group input-group-dynamic">
-                                {{ form_widget(f.etat, {
-                                    'attr': {
-                                        'class': 'form-control',
-                                        'onfocus': 'focused(this)',
-                                        'onfocusout': 'defocused(this)',
-                                    }
-                                }) }}
-                              </div>
+
                             </div>
                           </div>
                           <div class="button-row d-flex mt-4">
-                            
+                            <button class="btn bg-gradient-light mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
                             {{ form_widget(f.Add, {'attr': {'class': 'btn bg-gradient-dark ms-auto mb-0'}} ) }}
 
+                          </div>
                         </div>
-                         
                       </div>
-          
-                        
-                        
-                  </div>
           
           
                    
@@ -356,4 +280,4 @@
     <script src="{{ asset('asset/assets/js/plugins/multistep-form.js') }}"></script>
   {% endblock %}
  
-        
+   

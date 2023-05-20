@@ -14,9 +14,9 @@
           <li class="breadcrumb-item text-sm">
             <a class="opacity-5 text-dark" href="javascript:;">Management </a>
           </li>
-          <li class=" text-sm text-dark active" aria-current="page"> / List Matches</li>
+          <li class=" text-sm text-dark active" aria-current="page"> / List Players</li>
         </ol>
-        <h6 class="font-weight-bolder mb-0">Matches</h6>
+        <h6 class="font-weight-bolder mb-0">Players</h6>
       </nav>
       <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
         <a href="javascript:;" class="nav-link text-body p-0">
@@ -119,7 +119,7 @@
               <div class="card-header pb-0">
                 <div class="d-lg-flex">
                   <div>
-                    <h5 class="mb-0">All Matches</h5>
+                    <h5 class="mb-0">All Players</h5>
                     <p class="text-sm mb-0">
                       A lightweight, extendable, dependency-free javascript HTML table plugin.
                     </p>
@@ -127,7 +127,7 @@
                   <div class="ms-auto my-auto mt-lg-0 mt-4">
                     <div class="ms-auto my-auto">
                      
-                        <a href="{{ path('app_addMatch') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >+&nbsp; New Match</a>
+                        <a href="{{ path('app_addreferee') }}" class="btn btn-primary"  style="float: right; margin-bottom: 20px;" >+&nbsp; New Player</a>
                      
                   </div>
                 </div>
@@ -145,41 +145,32 @@
                           <tr>
                             <th  class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">ID</a>   
                             </th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">DATE</a>   
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">IMAGE</a>   
                             </th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">TOURNAMENT</a>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">FIRST NAME</a>
                             </th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 1</a></th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 2</a></th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">WINNER</a>
-                            </th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">LOSER</a></th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">RESULTAT</a></th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">STATUS</a></th>
-                           
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">LAST NAME</a></th>
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">NATIONALITY</a></th>
+                          
                             <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">Action</a></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {% for matches in m %}
+                            {% for referees in r  %}
                           <tr>
-                            <td class="text-center text-sm"> {{ matches.id }}</td>
-                            <td class=" text-center text-sm">{{ matches.date|date('Y-m-d') }}</td>
-                            <td class=" text-center text-sm">{{ matches.tournament }}</td>
-                            
-                            <td class=" text-center text-sm">{{ matches.player1.firstName }} {{ matches.player1.lastName }}</td>
-                            <td class=" text-center text-sm">{{ matches.player2.firstName }} {{ matches.player2.lastName }}</td>
-                            <td class=" text-center text-sm" > <span class="badge badge-success badge-sm ">{{ matches.winner.firstName }} {{ matches.winner.lastName }}</span></td>
-                            <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ matches.loser.firstName }} {{ matches.loser.lastName }}</span></td>
-                            <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ matches.resultat }}</span></td>
-                            <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ matches.etat }} </span></td>
+                            <td class="text-center text-sm"> {{ referees.id }}</td>
+                            <td class="text-center text-sm"> <img class="w-10" src="{{ asset('uploads/referee_images/' ~ referees.getImage) }}"></td>
+                            <td class=" text-center text-sm">{{ referees.firstName  }}</td>
+                            <td class=" text-center text-sm">{{ referees.lastName  }}</td>
+                            <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ referees.nationality  }}</span></td>
+                           
                            
                             <td class=" text-center text-sm">
                              
-                              <a href="{{ path('app_modmatch', {'id':matches.id}) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit player">
+                              <a href="{{ path('app_modreferee', {'id':referees.id}) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit player">
                                 <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
                               </a>
-                              <a href="{{ path('app_supmatch', {'id':matches.id}) }}" data-bs-toggle="tooltip" data-bs-original-title="Delete player">
+                              <a href="{{ path('app_supreferee', {'id':referees.id}) }}" data-bs-toggle="tooltip" data-bs-original-title="Delete player">
                                 <i class="material-icons text-secondary position-relative text-lg">delete</i>
                               </a>
                             </td>
@@ -201,4 +192,3 @@
 </main>
 
 {% endblock %}
-

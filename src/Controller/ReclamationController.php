@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 use App\Entity\Reclamation;
-use App\Controller\ReclamationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

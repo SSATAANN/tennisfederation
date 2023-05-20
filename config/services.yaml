@@ -32,4 +32,5 @@ parameters:
     player_images_directory: '%kernel.project_dir%/public/uploads/player_images'
     user_images_directory: '%kernel.project_dir%/public/uploads/user_images'
     news_images_directory: '%kernel.project_dir%/public/uploads/news_images'
+    referee_images_directory: '%kernel.project_dir%/public/uploads/referee_images'
 

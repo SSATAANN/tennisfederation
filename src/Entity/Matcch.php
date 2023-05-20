@@ -53,6 +53,54 @@ private $player2;
 
     private $loser;
 
+    //-------------------
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $resultat;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $etat;
+
+    // ...
+
+    public function getResultat(): ?int
+    {
+        return $this->resultat;
+    }
+
+    public function setResultat(?int $resultat): self
+    {
+        $this->resultat = $resultat;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+    // Ajoutez cette méthode pour afficher le résultat à un visiteur
+    public function afficherResultat(): string
+    {
+        if ($this->resultat !== null) {
+            return 'Résultat : ' . $this->resultat;
+        } else {
+            return 'Résultat non disponible';
+        }
+    }
+
+//--------------------------------------
+
     public function getId(): ?int
     {
         return $this->id;
