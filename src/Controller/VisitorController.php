@@ -11,11 +11,20 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class VisitorController extends AbstractController
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     /**
-     * @Route("/Visitor", name="app_visitor")
+     * @Route("//Admin/Visitor", name="app_visitor")
      */
    
     public function index(): Response
@@ -31,15 +40,17 @@ class VisitorController extends AbstractController
      * @Route("/addVisitor", name="app_addvisitor")
      */
     public function addVisitor(Request $request): Response
+    
     {
         $user = new User();
 
-        $form = $this->createForm(UserType::class,$user);
+        $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $roles = $form->get('roles')->getData();
+            $user->setRoles($roles);
              /** @var UploadedFile $imageFile */
              $imageFile = $form->get('imageFile')->getData();
 
@@ -59,12 +70,20 @@ class VisitorController extends AbstractController
                // update the Player entity with the new image path
                $user->setImage($newFilename);
              }
+            // Encode the new users password
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+
+            // Set their role
+            
+
+            // Save
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user); //add
+            $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('app_visitor');
         }
+
         return $this->render('visitor/createVisitor.html.twig',['f'=>$form->createView()]);
     }
     
@@ -110,4 +129,26 @@ class VisitorController extends AbstractController
         }
         return $this->render('visitor/updateVisitor.html.twig',['f'=>$form->createView()]);
     }
+
+     /**
+     * @Route("/supVisitor/{id}", name="app_supvisitor")
+     */
+    public function suppressionVisitor(User $user): Response
+{
+    $em = $this->getDoctrine()->getManager();
+    $imageFilename = $user->getImageFilename();
+
+    if ($imageFilename) {
+        $imagePath = $this->getParameter('uploads/user_images').'/'.$imageFilename;
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+    }
+
+    $em->remove($user);
+    $em->flush();
+
+    return $this->redirectToRoute('app_visitor');
+}
+
 }

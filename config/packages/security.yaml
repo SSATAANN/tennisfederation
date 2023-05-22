@@ -16,6 +16,7 @@ security:
             security: false
         main:
             anonymous: lazy
+            
             provider: app_user_provider
             guard:
                 authenticators:
@@ -35,5 +36,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # Allow access to the login route
+    - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+    # Require authentication for other routes
+    - { path: ^/Admin, roles: ROLE_ADMIN }
+    - { path: ^/player, roles: ROLE_PLAYER }
+    - { path: ^/referee, roles: ROLE_REFEREE }
+    - { path: ^/Client, roles: ROLE_VISITOR }

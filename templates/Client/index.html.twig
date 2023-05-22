@@ -65,7 +65,7 @@
   </li>
   
   <li class="nav-item mx-2">
-    <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="#">
+    <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="#matches-section">
         <i class="material-icons opacity-6 me-2 text-md">sports_tennis</i>
         Matches
     </a>
@@ -77,13 +77,16 @@
       News
   </a>
 </li>
+{% if app.user %}
+
 <li class="nav-item mx-2">
-  <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="{{ path('app_addReclamation') }}">
+  <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="#contacts-section">
       <i class="material-icons opacity-6 me-2 text-md">contacts</i>
-      Contact
+      Contacts
   </a>
 </li>
 
+{% endif %}
     </ul>
     <ul class="navbar-nav d-lg-block d-none">
     <li class="nav-item">
@@ -134,6 +137,7 @@
     </div>
     </div>
     </div>
+    
     </header>
     <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
     <section class="pt-3 pb-4" id="count-stats">
@@ -192,7 +196,7 @@
                   <div class="rotating-card-container">
                      <div class="card card-rotate card-background card-background-mask-primary shadow-primary mt-md-0 mt-5 mb-5">
                         
-                        <div class="front front-background" style="background-image: url({{ asset('assetClient/assets/img/roger_federer.png') }}); background-size: cover;">
+                        <div class="front front-background" style="background-image: url({{ asset('assetClient/assets/img/novak.jfif') }}); background-size: cover;">
                            <div class="card-body py-10 text-center">
                               <h3 class="text-white" style="font-size: 150px; position: absolute; bottom: 0px; right: 10px;">{{ playerCard.ranking }}</h3>
                               <h3 class="text-white opacity-8" style="font-size: 40px; position: absolute; bottom: 35px; right: 90px;">RANK</h3>
@@ -208,7 +212,7 @@
                            <div class="card-body pt-7 text-center">
                               <h3 class="text-white">Discover More</h3>
                               <p class="text-white opacity-8">Discover a diverse lineup of talented players and delve into their profiles, unlocking a wealth of information and insights</p>
-                              <a href="https://demos.creative-tim.com/sections/page-sections/hero-sections.html" target="_blank" class="btn btn-white btn-sm w-50 mx-auto mt-3">See All Players</a>
+                              <a href="{{ path('app_player_card') }}"  class="btn btn-white btn-sm w-50 mx-auto mt-3">See All Players</a>
                            </div>
                         </div>
                         
@@ -270,7 +274,60 @@
           </section>
 
           
-          
+          <section class="my-5 py-5 " id="matches-section">
+            
+            <div class="container mt-sm-5 mt-3">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
+                    <h3>Matches</h3>
+                    <h6 class="text-secondary font-weight-normal pe-3">Stay updated with the latest match results and scores</h6>
+                  </div>
+                </div>
+                
+                <div class="col-lg-9 ">
+                  <div class="block-area ">
+                    <div class="card card-full ">
+                      {% for match in matches|slice(0, 4) %}
+                      <div class="row justify-content-center">
+                      
+                        <div class="col-sm-12 mb-2">
+                          <div class="card-body pt-4 pt-sm-0">
+                            <!--title-->
+                            <h3 class="card-title">
+                              <a href="#">{{ match.player1}} VS {{ match.player2}}</a>
+                            </h3>
+                            <!-- author, date & comments -->
+                            <div class="card-text mb-2 text-muted small">
+                              <span class="d-none d-sm-inline me-1">
+                                <a class="font-weight-bold text-center" href="#">Tournament : {{ match.tournament}}</a>
+                                
+                              </span>
+                              <time datetime="2019-10-21">{{ match.date|date('Y-m-d') }}</time>
+                            
+                            </div>
+                            <!--description-->
+                            
+                            {% if match.etat == 'en cours' %}
+                              <a class="font-weight-bold text-center" href="#">Winner :</a> <a href="#"> {{ match.etat}}</a>
+                              {% elseif match.etat == 'termine' %}
+                              <a class="font-weight-bold text-center" href="#">Result :</a> <a href="#"> {{ match.resultat}}</a> <br>
+                              <a class="font-weight-bold text-center" href="#">Winner :</a> <a href="#"> {{ match.winner}}</a>
+                              {% else %}
+                              <a class="font-weight-bold text-center" href="#">Soon :</a> <a href="#"> {{ match.date|date('Y-m-d')}}</a>
+                            {% endif %}
+                            <!--read more button-->
+                            <div class="text-end">
+                              <button type="button" class="btn btn-rounded bg-gradient-primary mt-4">Contact Us</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+            </div>
+          </section>
           
 
 
@@ -374,44 +431,86 @@
           
           
           {% endblock %}
+          {% if app.user %}
+          <section class="my-5 py-5" id="contacts-section">
+            
+            <div class="container mt-sm-5 mt-3">
+              <div class="row">
+                
+                <div class="col-lg-9">
+                  <div class="block-area">
+                    <!--block title-->
+                 
+                    <!--block content-->
+                    
+                    <div class="row">
+                      <div class="page-header min-vh-85">
+                        <div>
+                          <div id="map" class="position-absolute fixed-top ms-auto w-80 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"></div>
+
+                        </div>
+                        <div class="container">
+                        <div class="row">
+                        <div class="col-lg-7 d-flex">
+                        <div class="card card-body blur text-md-start text-center px-sm-5 shadow-lg mt-sm-5 py-sm-5">
+                          <h2 class="text-dark mb-4">Get in touch</h2>
+                          <p class="lead text-dark pe-md-5 me-md-5">
+                              Have any questions or inquiries? Feel free to reach out to us using the contact information below.
+                          </p>
+                          
+                        <div class="buttons">
+                          <a href="{{ path('app_addReclamation') }}">
+                        <button type="button" class="btn btn-rounded bg-gradient-primary mt-4">Contact Us</button>
+                      </a>
+                        </div>
+                       
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                      </div>
+                      <!--end post right list-->
+                     
+
+                    </div>
+                    <!-- end block content -->
+                    
+                  </div>
+                  <div class="col-md-3 mx-auto mt-md-0 mt-5">
+                    <div class="position-sticky" style="top:100px !important">
+                    <h4 class="text-dark mb-4">Get in touch</h4>
+                    <h6 class="text-secondary">Have any questions or inquiries? Feel free to reach out to us using the contact information below.</h6>
+                    </div>
+                  </div>
+              </div>
+
+          </section>
+          {% endif %}
+
+          <script>
+            // Initialize the map
+            var map = L.map('map').setView([36.84454912104122, 10.183201062686189], 13); // Replace [51.505, -0.09] with the latitude and longitude of your desired location
           
-          <div class="page-header min-vh-85">
-            <div>
-            <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0" src="https://images.unsplash.com/photo-1538681105587-85640961bf8b?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="image" loading="lazy">
-            </div>
-            <div class="container">
-            <div class="row">
-            <div class="col-lg-7 d-flex">
-            <div class="card card-body blur text-md-start text-center px-sm-5 shadow-lg mt-sm-5 py-sm-5">
-            <h2 class="text-dark mb-0">Material Kit.</h2>
-            <h2 class="text-dark mb-4">Choose the best</h2>
-            <p class="lead text-dark pe-md-5 me-md-5">
-            Find the story of Creative Tim's most complex design system and
-            all the work that make this design available.
-            </p>
-            <div class="buttons">
-            <button type="button" class="btn btn-rounded bg-gradient-primary mt-4">Contact Us</button>
-            <button type="button" class="btn btn-rounded btn-outline-secondary mt-4 ms-2">Read More</button>
-            </div>
-            <div class="row mt-2">
-            <div class="col-md-3 col-6 p-0">
-            <img class="w-100" src="../assets/img/logos/gray-logos/logo-pinterest.svg" alt="logo">
-            </div>
-            <div class="col-md-3 col-6 p-0">
-            <img class="w-100" src="../assets/img/logos/gray-logos/logo-netflix.svg" alt="logo">
-            </div>
-            <div class="col-md-3 col-6 p-0">
-            <img class="w-100" src="../assets/img/logos/gray-logos/logo-coinbase.svg" alt="logo">
-            </div>
-            <div class="col-md-3 col-6 p-0">
-            <img class="w-100" src="../assets/img/logos/gray-logos/logo-nasa.svg" alt="logo">
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-
-
+            // Add the tile layer (map tiles) to the map
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+              maxZoom: 18,
+            }).addTo(map);
+          
+            // Create a custom marker icon
+            var customIcon = L.icon({
+              iconUrl: '{{ asset('assetClient/assets/img/map_icon.png') }}',
+              iconSize: [32, 50], // Adjust the icon size as needed
+              iconAnchor: [16, 32], // Adjust the icon anchor point as needed
+            });
+          
+            // Add a marker to the map with the custom icon
+            L.marker([36.84454912104122, 10.183201062686189], { icon: customIcon }).addTo(map); // Replace [51.5, -0.09] with the latitude and longitude of your marker
+          
+            // Customize the map height and width
+            map.invalidateSize();
+          </script>
+          
+          
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Matcch;
 use App\Entity\News;
 use App\Entity\Player;
 use App\Repository\MatcchRepository;
@@ -20,6 +21,7 @@ class ClientController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $playerCards = $em->getRepository(Player::class)->findAll();
+        $matches = $em->getRepository(Matcch::class)->findAll();
         $news = $em->getRepository(News::class)->findAll();
 
         
@@ -30,6 +32,7 @@ class ClientController extends AbstractController
         
         return $this->render('Client/index.html.twig', [
             'playerCards' => $playerCards,
+            'matches' => $matches,
             'news' => $news,
             'totalVisitors' => $totalVisitors,
             'totalMatches' => $totalMatches,

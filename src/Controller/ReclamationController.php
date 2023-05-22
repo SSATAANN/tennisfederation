@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReclamationController extends AbstractController
 {
     /**
-     * @Route("/reclamation", name="reclamation_index")
+     * @Route("//Admin/reclamation", name="reclamation_index")
      */
     public function index()
     {

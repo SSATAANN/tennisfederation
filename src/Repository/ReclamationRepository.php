@@ -22,7 +22,13 @@ class ReclamationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Reclamation::class);
     }
-
+    public function getTotalComplaints()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     /**
      * @throws ORMException
      * @throws OptimisticLockException

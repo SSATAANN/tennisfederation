@@ -130,11 +130,14 @@
                 <div class="table-responsive">
                   <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
                     <div class="dataTable-top">
+                      <div class="input-group input-group-outline">
+                        <label class="form-label">Search here</label>
+                        <input type="text" class="form-control dataTable-input"  id="recSearchInput">
+                      </div>
                       
-                      <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text"></div>
                     </div>
                     <div class="dataTable-container">
-                      <table class="table table-flush dataTable-table" id="products-list">
+                      <table class="table table-flush dataTable-table" id="reclamations-list">
                         <thead class="thead-light">
                           <tr>
                             <th  class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">ID</a>   
@@ -183,5 +186,26 @@
       
       </div>
 </main>
+<script>
+  // Get the search input element
+  const searchInput = document.getElementById('recSearchInput');
 
+  // Add an event listener to the search input for keyup event
+  searchInput.addEventListener('keyup', function() {
+    const filter = searchInput.value.toLowerCase(); // Get the search filter value
+
+    // Get all table rows in the table body
+    const tableRows = document.querySelectorAll('#reclamations-list tbody tr');
+
+    // Loop through each table row and hide/show based on the search filter
+    tableRows.forEach(function(row) {
+      const playerName = row.querySelector('.text-center.text-sm:nth-child(2)').innerText.toLowerCase();
+      if (playerName.includes(filter)) {
+        row.style.display = ''; // Show the row if the player name matches the filter
+      } else {
+        row.style.display = 'none'; // Hide the row if the player name doesn't match the filter
+      }
+    });
+  });
+</script>
 {% endblock %}

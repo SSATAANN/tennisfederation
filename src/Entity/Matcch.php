@@ -55,7 +55,7 @@ private $player2;
 
     //-------------------
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $resultat;
 
@@ -66,12 +66,12 @@ private $player2;
 
     // ...
 
-    public function getResultat(): ?int
+    public function getResultat(): ?string
     {
         return $this->resultat;
     }
 
-    public function setResultat(?int $resultat): self
+    public function setResultat(?string $resultat): self
     {
         $this->resultat = $resultat;
 

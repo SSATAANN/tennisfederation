@@ -12,7 +12,7 @@ class PlayerCardController extends AbstractController
 {
     
     /**
-     * @Route("/players/cards", name="app_player_card")
+     * @Route("/Client/cards", name="app_player_card")
      */
     public function showPlayerCardsAction(): Response
     {

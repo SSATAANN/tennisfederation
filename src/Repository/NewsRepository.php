@@ -22,7 +22,13 @@ class NewsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, News::class);
     }
-
+    public function getTotalNews()
+    {
+        return $this->createQueryBuilder('n')
+            ->select('COUNT(n.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     /**
      * @throws ORMException
      * @throws OptimisticLockException

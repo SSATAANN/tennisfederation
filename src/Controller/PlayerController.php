@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class PlayerController extends AbstractController
 {
     /**
-     * @Route("/Player", name="app_player")
+     * @Route("/Admin/Player", name="app_player")
      */
     public function index(): Response
     {

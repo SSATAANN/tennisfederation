@@ -81,7 +81,7 @@
 <li class="nav-item mx-2">
   <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="#">
       <i class="material-icons opacity-6 me-2 text-md">contacts</i>
-      Contact
+      Contacts
   </a>
 </li>
 
@@ -119,27 +119,47 @@
     </div>
     </div>
     </nav>
-    
-<section class="my-5 py-5" id="players-section">
-            
-    <div class="container">
-      <div class="row justify-content-center text-center my-sm-5">
-        <div class="col-lg-6">
-        <span class="badge badge-primary mb-3">Rank 1 Player</span>
-        <h2 class="text-dark mb-0">Huge collection of players</h2>
-        <p class="lead">Experience the incredible skills and unmatched performance of our rank 1 player.</p>
-        </div>
-        </div>
-      <div class="row align-items-center">
+    <section class="py-5">
+      <div class="container">
+        <h3 class="text-center">You may also be interested in:</h3>
+        <div class="row mt-7">
+          {% set sortedPlayerCards = playerCards|sort((a, b) => a.ranking - b.ranking) %}
 
-        {% for playerCard in playerCards|slice(0, 9) %}
-            {% include 'layouts/card.html.twig' with {'playerCard': playerCard} %}
-        {% endfor %}
-   
+      {% for playerCard in sortedPlayerCards %}
 
-    </div>
-</div>
-</section>
+          <div class="col-6 col-lg-3 mb-5">
+            <div class="card mb-5 mb-lg-0">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <a class="d-block blur-shadow-image">
+                  <img src="{{ asset('uploads/player_images/' ~ playerCard.image) }}"
+                    class="img-fluid border-radius-lg" loading="lazy">
+                </a>
+             
+              </div>
+              <div class="card-body text-center">
+                <p class="mb-0 text-primary text-uppercase font-weight-normal text-sm">Rank {{ playerCard.ranking }}</p>
+                <h5 class="font-weight-bold mt-3">
+                  <a href="javascript:;">{{ playerCard.firstName }} {{ playerCard.lastName }}</a>
+                </h5>
+                <p class="mb-0 text-primary text-uppercase font-weight-normal text-sm">Nationality</p>
+               
+                <p class="mb-0">
+                  {{ playerCard.nationality }}
+                </p>
+              </div>
+              <div class="card-footer d-flex pt-0 justify-content-center">
+                <button type="button" class="btn btn-rounded bg-gradient-primary mt-4">Details</button>
+              </div>
+            </div>
+          </div>
+      {% endfor %}
+
+          
+          
+        </div>
+      </div>
+    </section>
+
 
 
 

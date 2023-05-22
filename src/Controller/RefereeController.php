@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RefereeController extends AbstractController
 {
     /**
-     * @Route("/Referee", name="app_referee")
+     * @Route("//Admin/Referee", name="app_referee")
      */
     public function index(): Response
     {
