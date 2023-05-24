@@ -46,10 +46,10 @@ class PlayerType extends AbstractType
             ->add('bio')
             ->add('email')
             ->add('password',RepeatedType::class, [
-             'type'=>PasswordType::class,
-             'first_options'=>['label'=>'Password'],
-             'second_options'=>['label'=>'Confirm Password']
-         ])
+                'type'=>PasswordType::class,
+                'first_options'=>['label'=>'Password'],
+                'second_options'=>['label'=>'Confirm Password']
+            ])
             ->add('Add', SubmitType::class)
            
        
