@@ -37,6 +37,10 @@ class PlayerController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $user = $this->getUser();
+            $player->setUser($user);
+
+             
              /** @var UploadedFile $imageFile */
              $imageFile = $form->get('imageFile')->getData();
 
@@ -102,6 +106,8 @@ class PlayerController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         
         {
+            $user = $this->getUser();
+            $player->setUser($user);
               /** @var UploadedFile $imageFile */
               $imageFile = $form->get('imageFile')->getData();
 

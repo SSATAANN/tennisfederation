@@ -24,7 +24,7 @@ class VisitorController extends AbstractController
     }
 
     /**
-     * @Route("//Admin/Visitor", name="app_visitor")
+     * @Route("/Admin/Visitor", name="app_visitor")
      */
    
     public function index(): Response

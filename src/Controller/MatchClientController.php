@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class MatchClientController extends AbstractController
 {
     /**
-     * @Route("/match/client", name="app_match_client")
+     * @Route("/Client/matches", name="app_match_client")
      */
     public function MatchAction(): Response
     {

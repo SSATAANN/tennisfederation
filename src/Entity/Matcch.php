@@ -18,6 +18,10 @@ class Matcch
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $type;
+    /**
      * @ORM\Column(type="date")
      */
     private $date;
@@ -37,6 +41,17 @@ private $player1;
  * @ORM\JoinColumn(nullable=false, referencedColumnName="id", onDelete="SET NULL")
  */
 private $player2;
+/**
+ * @ORM\ManyToOne(targetEntity=Player::class)
+ * @ORM\JoinColumn(nullable=false, referencedColumnName="id", onDelete="SET NULL")
+ */
+private $player3;
+
+/**
+ * @ORM\ManyToOne(targetEntity=Player::class)
+ * @ORM\JoinColumn(nullable=false, referencedColumnName="id", onDelete="SET NULL")
+ */
+private $player4;
 
 
    /**
@@ -65,7 +80,17 @@ private $player2;
     private $etat;
 
     // ...
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
 
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
     public function getResultat(): ?string
     {
         return $this->resultat;
@@ -153,6 +178,29 @@ private $player2;
         return $this;
     }
 
+    public function getPlayer3(): ?Player
+    {
+        return $this->player3;
+    }
+
+    public function setPlayer3(?Player $player3): self
+    {
+        $this->player3 = $player3;
+
+        return $this;
+    }
+
+    public function getPlayer4(): ?Player
+    {
+        return $this->player4;
+    }
+
+    public function setPlayer4(?Player $player4): self
+    {
+        $this->player4 = $player4;
+
+        return $this;
+    }
     public function getWinner(): ?Player
     {
         return $this->winner;

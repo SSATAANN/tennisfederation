@@ -3,6 +3,7 @@
 namespace App\Entity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +13,22 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Player
 {
+     /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+    public function getUser(): ?UserInterface
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UserInterface $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
      /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -33,6 +50,8 @@ class Player
      *     mimeTypes={"image/jpeg", "image/png", "image/gif"}
      * )
      */
+
+
     private $imageFile;
 
     /**
@@ -90,6 +109,26 @@ class Player
      */
     private $bio;
 
+    
+    
+/**
+ * @ORM\Column(type="string", length=255)
+ */
+private $email;
+
+public function getEmail(): ?string
+{
+    return $this->email;
+}
+
+public function setEmail(string $email): self
+{
+    $this->email = $email;
+    return $this;
+}
+   
+
+    
     public function getId(): ?int
     {
         return $this->id;

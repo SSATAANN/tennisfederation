@@ -20,7 +20,26 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+     /**
+     * @ORM\OneToOne(targetEntity=Player::class, mappedBy="user")
+     */
+    private $player;
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
 
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
+
+        // IMPORTANT: This is necessary to maintain the bidirectional relationship
+        if ($player !== null && $player->getUser() !== $this) {
+            $player->setUser($this);
+        }
+
+        return $this;
+    }
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */

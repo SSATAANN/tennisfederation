@@ -23,6 +23,8 @@ class PlayerType extends AbstractType
 
             ->add('firstName')
             ->add('lastName')
+               // Include existing form fields
+               ->add('email')
             ->add('nationality')
             ->add('birthDate', DateType::class, [
                 'years' => range(date('Y')-70, date('Y')),
