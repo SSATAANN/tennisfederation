@@ -105,7 +105,7 @@ class LoginAuth extends AbstractFormLoginAuthenticator implements PasswordAuthen
             return new RedirectResponse($this->urlGenerator->generate('app_player_client'));
         } 
         elseif (in_array('ROLE_REFEREE', $roles, true)) {
-            return new RedirectResponse($this->urlGenerator->generate('Referee'));
+            return new RedirectResponse($this->urlGenerator->generate('app_referee_client'));
         } 
         else {
 
