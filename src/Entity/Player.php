@@ -155,7 +155,11 @@ class Player
  * @ORM\Column(type="string", length=255)
  */
 private $email;
-
+ /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 public function getEmail(): ?string
 {
     return $this->email;
@@ -345,4 +349,18 @@ public function __toString(): string
 {
     return $this->getName();
 }
+ /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string)$this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
 }

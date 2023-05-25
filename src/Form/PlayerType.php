@@ -8,7 +8,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 class PlayerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -23,8 +25,8 @@ class PlayerType extends AbstractType
 
             ->add('firstName')
             ->add('lastName')
-               // Include existing form fields
-               ->add('email')
+              
+              
             ->add('nationality')
             ->add('birthDate', DateType::class, [
                 'years' => range(date('Y')-70, date('Y')),
@@ -42,6 +44,12 @@ class PlayerType extends AbstractType
             ->add('ranking')
             ->add('titles')
             ->add('bio')
+            ->add('email')
+            ->add('password',RepeatedType::class, [
+                'type'=>PasswordType::class,
+                'first_options'=>['label'=>'Password'],
+                'second_options'=>['label'=>'Confirm Password']
+            ])
             ->add('Add', SubmitType::class)
            
        

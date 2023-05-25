@@ -4,15 +4,22 @@ namespace App\Controller;
 
 use App\Form\PlayerType;
 use App\Entity\Player;
+use App\Entity\User; 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class PlayerController extends AbstractController
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
     /**
      * @Route("/Admin/Player", name="app_player")
      */
@@ -27,46 +34,39 @@ class PlayerController extends AbstractController
      /**
      * @Route("/Admin/addPlayer", name="app_addplayer")
      */
-    public function addPlayer(Request $request): Response
+    public function addPlayer(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $player = new Player();
 
-        $form = $this->createForm(PlayerType::class,$player);
+        $form = $this->createForm(PlayerType::class, $player);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $user = $this->getUser();
-            $player->setUser($user);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //add user with player 
+            $playerUser = new User();
+            $playerUser->setEmail($player->getEmail());
+            $playerUser->setRoles(['ROLE_PLAYER']);
+            $playerUser->setName($player->getFirstName()); 
+            $playerUser->setName($player->getGender()); 
+            $playerUser->setPassword(
+                $passwordEncoder->encodePassword($playerUser, $player-> getPassword())
+            );
 
-             
-             /** @var UploadedFile $imageFile */
-             $imageFile = $form->get('imageFile')->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($playerUser);
+            $entityManager->flush();
 
-             if ($imageFile) {
-               $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-               $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
-           
-               try {
-                   $imageFile->move(
-                       $this->getParameter('player_images_directory'),
-                       $newFilename
-                   );
-               } catch (FileException $e) {
-                   // handle exception if something happens during file upload
-               }
-           
-               // update the Player entity with the new image path
-               $player->setImage($newFilename);
-             }
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($player); //add
-            $em->flush();
+            $player->setUser($playerUser);
+
+            $entityManager->persist($player); // Add the player to the player table
+            $entityManager->flush();
+    
 
             return $this->redirectToRoute('app_player');
         }
-        return $this->render('player/createPlayer.html.twig',['f'=>$form->createView()]);
+
+        return $this->render('player/createPlayer.html.twig', ['f' => $form->createView()]);
     }
 
     /**
