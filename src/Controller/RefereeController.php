@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Referee;
 use App\Form\RefereeType;
+use App\Entity\Referee;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RefereeController extends AbstractController
 {
     /**
-     * @Route("//Admin/Referee", name="app_referee")
+     * @Route("/Admin/Referee", name="app_referee")
      */
     public function index(): Response
     {
@@ -24,7 +25,7 @@ class RefereeController extends AbstractController
         ]);
     }
     /**
-     * @Route("/addReferee", name="app_addreferee")
+     * @Route("/Admin/addReferee", name="app_addreferee")
      */
     public function addReferee(Request $request): Response
     {
@@ -64,7 +65,7 @@ class RefereeController extends AbstractController
         return $this->render('referee/createReferee.html.twig',['f'=>$form->createView()]);
     }
      /**
-     * @Route("/supReferee/{id}", name="app_supreferee")
+     * @Route("/Admin/supReferee/{id}", name="app_supreferee")
      */
     public function suppressionReferee(Referee $referee): Response
 {
@@ -85,7 +86,7 @@ class RefereeController extends AbstractController
 }
 
     /**
-     * @Route("/modReferee/{id}", name="app_modreferee")
+     * @Route("/Admin/modReferee/{id}", name="app_modreferee")
      */
     public function modReferee(Request $request,$id): Response
     {

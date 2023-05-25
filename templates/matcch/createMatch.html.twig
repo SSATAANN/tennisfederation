@@ -126,13 +126,13 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body mb-7">
                     {{ form_start(f, {'attr': {'class': 'multisteps-form__form', 'style': 'height: 391px;' } }) }}
 
                       <div class="multisteps-form__panel pt-3 border-radius-xl bg-white js-active" data-animation="FadeIn">
                         <h5 class="font-weight-bolder">Player Information</h5>
                         <div class="multisteps-form__content">
-                            <div class="row mt-3">
+                            <div class="row">
                                 <div class="col-12" >
                                     <label for="{{ f.date.vars.id }}" class="form-label">Date</label>
                                     <div class="input-group input-group-static my-3">
@@ -177,7 +177,7 @@
                          
                         
                         
-                            <div class="row mt-3">
+                            <div class="row">
                                 <div class="col-12 mt-3">
                                     <div class="input-group input-group-dynamic">
                                         <label for="exampleFormControlInput1" class="form-label">Tournament</label>
@@ -190,18 +190,37 @@
                                         }) }}
                                     </div>
                                 </div>
-                                <div class="col-12 mt-3">
-                                    <div class="input-group input-group-dynamic">
-                                        <label for="exampleFormControlInput1" class="form-label">Type</label>
-                                        {{ form_widget(f.type, {
-                                            'attr': {
-                                                'class': 'form-control',
-                                                'onfocus': 'focused(this)',
-                                                'onfocusout': 'defocused(this)',
-                                            }
-                                        }) }}
-                                    </div>
+  
+                            </div>
+                              <div class="row mt-3">
+                              
+                              <div class="col-12 col-sm-6 mt-5">
+                                <label for="exampleFormControlInput1" class="form-label">Type</label>
+
+                                <div class="input-group input-group-dynamic">
+                                    {{ form_widget(f.type, {
+                                        'attr': {
+                                            'class': 'form-control',
+                                            'onchange': 'togglePlayerFields(this)',
+                                        }
+                                    }) }}
                                 </div>
+                                </div>
+                                <div class="col-12 col-sm-6 ">
+                                  <label for="exampleFormControlInput1" class="form-label">Referees</label>
+                                  <div class="input-group input-group-dynamic">
+                                      {{ form_widget(f.referees, {
+                                          'attr': {
+                                              'class': 'form-control',
+                                              'onfocus': 'focused(this)',
+                                              'onfocusout': 'defocused(this)',
+                                          }
+                                      }) }}
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+
                                 <div class="col-12 col-sm-6  mt-3">
                                     <label for="exampleFormControlInput1" class="form-label">Player 1</label>
                                     <div class="input-group input-group-dynamic">
@@ -215,6 +234,7 @@
                                         }) }}
                                     </div>
                                 </div>
+                              
                                 <div class="col-12 col-sm-6  mt-3">
                                     <label for="exampleFormControlInput1" class="form-label">Player 2</label>
                                     <div class="input-group input-group-dynamic">
@@ -228,36 +248,40 @@
                                         }) }}
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-6  mt-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Player 3</label>
-                                    <div class="input-group input-group-dynamic">
-                                        
-                                        {{ form_widget(f.player3, {
-                                            'attr': {
-                                                'class': 'form-control',
-                                                'onfocus': 'focused(this)',
-                                                'onfocusout': 'defocused(this)',
-                                            }
-                                        }) }}
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6  mt-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Player 4</label>
-                                    <div class="input-group input-group-dynamic">
-                                        
-                                        {{ form_widget(f.player4, {
-                                            'attr': {
-                                                'class': 'form-control',
-                                                'onfocus': 'focused(this)',
-                                                'onfocusout': 'defocused(this)',
-                                            }
-                                        }) }}
-                                    </div>
-                                </div>
-                                
+                              </div>
+                              <div class="row mt-3">
+
+                                <div class="col-12 col-sm-6 mt-3" id="player3Field" style="display: none;">
+                                  <label for="exampleFormControlInput1" class="form-label">Player 3</label>
+                                  <div class="input-group input-group-dynamic">
+                                      {{ form_widget(f.player3, {
+                                          'attr': {
+                                              'class': 'form-control',
+                                              'onfocus': 'focused(this)',
+                                              'onfocusout': 'defocused(this)',
+                                              'id': 'form_player3'
+                                          }
+                                      }) }}
+                                  </div>
+                              </div>
+                              
+                              <div class="col-12 col-sm-6 mt-3" id="player4Field" style="display: none;">
+                                  <label for="exampleFormControlInput1" class="form-label">Player 4</label>
+                                  <div class="input-group input-group-dynamic">
+                                      {{ form_widget(f.player4, {
+                                          'attr': {
+                                              'class': 'form-control',
+                                              'onfocus': 'focused(this)',
+                                              'onfocusout': 'defocused(this)',
+                                              'id': 'form_player4'
+                                          }
+                                      }) }}
+                                  </div>
+                              </div>
                             </div>
+                              
                           <div class="row mt-3">
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12 ">
                                 <label for="exampleFormControlInput1" class="form-label">Winner</label>
                               <div class="input-group input-group-dynamic">
                                 {{ form_widget(f.winner, {
@@ -266,22 +290,12 @@
                                         'class': 'form-control',
                                         'onfocus': 'focused(this)',
                                         'onfocusout': 'defocused(this)',
+
                                     }
                                 }) }}
                               </div>
                             </div>
-                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                                <label for="exampleFormControlInput1" class="form-label">Loser</label>
-                              <div class="input-group input-group-dynamic">
-                                {{ form_widget(f.loser, {
-                                    'attr': {
-                                        'class': 'form-control',
-                                        'onfocus': 'focused(this)',
-                                        'onfocusout': 'defocused(this)',
-                                    }
-                                }) }}
-                              </div>
-                            </div>
+                            
                           </div>
                           <div class="row mt-3">
                             <div class="col-12 col-sm-6">
@@ -333,7 +347,27 @@
           </div>
 
     </main>
-  
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var typeField = document.getElementById("{{ f.type.vars.id }}");
+          typeField.addEventListener("change", function() {
+              togglePlayerFields(this);
+          });
+      });
+      
+      function togglePlayerFields(typeField) {
+          var player3Field = document.getElementById('player3Field');
+          var player4Field = document.getElementById('player4Field');
+          
+          if (typeField.value === 'Single') {
+              player3Field.style.display = 'none';
+              player4Field.style.display = 'none';
+          } else {
+              player3Field.style.display = 'block';
+              player4Field.style.display = 'block';
+          }
+      }
+  </script>
     <script type="text/javascript" id="">!function(d,g,e){d.TiktokAnalyticsObject=e;var a=d[e]=d[e]||[];a.methods="page track identify instances debug on off once ready alias group enableCookie disableCookie".split(" ");a.setAndDefer=function(b,c){b[c]=function(){b.push([c].concat(Array.prototype.slice.call(arguments,0)))}};for(d=0;d<a.methods.length;d++)a.setAndDefer(a,a.methods[d]);a.instance=function(b){b=a._i[b]||[];for(var c=0;c<a.methods.length;c++)a.setAndDefer(b,a.methods[c]);return b};a.load=function(b,c){var f="https://analytics.tiktok.com/i18n/pixel/events.js";
         a._i=a._i||{};a._i[b]=[];a._i[b]._u=f;a._t=a._t||{};a._t[b]=+new Date;a._o=a._o||{};a._o[b]=c||{};c=document.createElement("script");c.type="text/javascript";c.async=!0;c.src=f+"?sdkid\x3d"+b+"\x26lib\x3d"+e;b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(c,b)};a.load("CC6UAQBC77U7GVKHLC4G");a.page()}(window,document,"ttq");</script>
         <script>

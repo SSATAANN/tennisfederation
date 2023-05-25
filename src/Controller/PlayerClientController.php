@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlayerClientController extends AbstractController
 {
     /**
-     * @Route("/Client/player", name="app_player_client")
+     * @Route("/Player/client", name="app_player_client")
      */
     public function index(UserRepository $userRepository, PlayerRepository $playerRepository, MatcchRepository $matchRepository): Response
     {
@@ -28,11 +28,8 @@ class PlayerClientController extends AbstractController
         $player = $user->getPlayer();
 
         // Query the matches associated with the logged-in player
-        $matches = $em->getRepository(Matcch::class)->createQueryBuilder('m')
-        ->where('m.player1 = :player OR m.player2 = :player OR m.player3 = :player OR m.player4 = :player')
-        ->setParameter('player', $player)
-        ->getQuery()
-        ->getResult();
+        $matches = $em->getRepository(Matcch::class)->findAll();
+
     
         
         $news = $em->getRepository(News::class)->findAll();

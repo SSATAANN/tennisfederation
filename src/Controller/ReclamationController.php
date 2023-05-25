@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReclamationController extends AbstractController
 {
     /**
-     * @Route("//Admin/reclamation", name="reclamation_index")
+     * @Route("/Admin/reclamation", name="reclamation_index")
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/reclamation/{id}", name="reclamation_details")
+     * @Route("/Admin/reclamation/{id}", name="reclamation_details")
      */
     public function details($id)
     {
@@ -40,7 +40,7 @@ class ReclamationController extends AbstractController
         ]);
     }
      /**
-     * @Route("/supPComplaint/{id}", name="app_supPComplaint")
+     * @Route("/Admin/supPComplaint/{id}", name="app_supPComplaint")
      */
     public function suppressionPlayer(Reclamation $reclamation): Response
 {

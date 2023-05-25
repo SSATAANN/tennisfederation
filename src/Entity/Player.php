@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Entity;
+use App\Entity\Matcch;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PlayerRepository;
@@ -13,6 +15,44 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Player
 {
+    
+    /**
+     * @ORM\ManyToMany(targetEntity=Matcch::class, mappedBy="winners")
+     */
+    private $matches;
+
+    public function __construct()
+    {
+        $this->matches = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Matcch[]
+     */
+    public function getMatches(): Collection
+    {
+        return $this->matches;
+    }
+
+    public function addMatch(Matcch $match): self
+    {
+        if (!$this->matches->contains($match)) {
+            $this->matches[] = $match;
+            $match->addWinner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatch(Matcch $match): self
+    {
+        if ($this->matches->removeElement($match)) {
+            $match->removeWinner($this);
+        }
+
+        return $this;
+    }
+    
      /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
