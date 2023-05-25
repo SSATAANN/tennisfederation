@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -84,8 +85,56 @@ public function removeMatch(Matcch $match): self
      */
     private $imageFile;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+    /**
+    * @var string The hashed password
+    * @ORM\Column(type="string")
+    */
+
+   private $password;
+   /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+    public function getUser(): ?UserInterface
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UserInterface $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+   public function getEmail(): ?string
+   {
+       return $this->email;
+   }
    
-    
+   public function setEmail(string $email): self
+   {
+       $this->email = $email;
+       return $this;
+   }
+   /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string)$this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
 
     public function getImageFilename(): ?string
     {

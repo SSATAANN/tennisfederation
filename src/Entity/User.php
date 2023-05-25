@@ -40,6 +40,28 @@ class User implements UserInterface
 
         return $this;
     }
+    //-------------------------
+         /**
+     * @ORM\OneToOne(targetEntity=Referee::class, mappedBy="user")
+     */
+    private $referee;
+    public function getReferee(): ?Referee
+    {
+        return $this->referee;
+    }
+
+    public function setReferee(?Referee $referee): self
+    {
+        $this->referee = $referee;
+
+        // IMPORTANT: This is necessary to maintain the bidirectional relationship
+        if ($referee !== null && $referee->getUser() !== $this) {
+            $referee->setUser($this);
+        }
+
+        return $this;
+    }
+    //-------------------------
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */

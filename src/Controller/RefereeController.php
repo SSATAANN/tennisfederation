@@ -4,16 +4,22 @@ namespace App\Controller;
 
 use App\Form\RefereeType;
 use App\Entity\Referee;
-
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RefereeController extends AbstractController
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
     /**
      * @Route("/Admin/Referee", name="app_referee")
      */
@@ -27,7 +33,7 @@ class RefereeController extends AbstractController
     /**
      * @Route("/Admin/addReferee", name="app_addreferee")
      */
-    public function addReferee(Request $request): Response
+    public function addReferee(Request $request,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $referee = new Referee();
 
@@ -37,6 +43,21 @@ class RefereeController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+        //add user
+        $refereeUser = new User();
+        $refereeUser->setEmail($referee->getEmail());
+        $refereeUser->setRoles(['ROLE_REFEREE']);
+        $refereeUser->setName($referee->getFirstName()); 
+        $refereeUser->setPassword($passwordEncoder->encodePassword($refereeUser, $referee-> getPassword()));
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($refereeUser);
+        $entityManager->flush();
+
+        $referee->setUser($refereeUser);
+
+
+        //add referee
              /** @var UploadedFile $imageFile */
              $imageFile = $form->get('imageFile')->getData();
 
