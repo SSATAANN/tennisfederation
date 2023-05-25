@@ -37,7 +37,7 @@ class VisitorController extends AbstractController
  
 
      /**
-     * @Route("/Admin/addVisitor", name="app_addvisitor")
+     * @Route("/addVisitor", name="app_addvisitor")
      */
     public function addVisitor(Request $request): Response
     
@@ -88,7 +88,7 @@ class VisitorController extends AbstractController
     }
     
     /**
-     * @Route("/Admin/modVisitor/{id}", name="app_modvisitor")
+     * @Route("/modVisitor/{id}", name="app_modvisitor")
      */
     public function modVisitorr(Request $request,$id): Response
     {
@@ -131,7 +131,7 @@ class VisitorController extends AbstractController
     }
 
      /**
-     * @Route("/Admin/supVisitor/{id}", name="app_supvisitor")
+     * @Route("/supVisitor/{id}", name="app_supvisitor")
      */
     public function suppressionVisitor(User $user): Response
 {

@@ -36,7 +36,7 @@ class NewsController extends AbstractController
 
 
     /**
-     * @Route("/Admin/addNew", name="app_addNew")
+     * @Route("/addNew", name="app_addNew")
      */
     public function addNew(Request $request): Response
     {
@@ -76,7 +76,7 @@ class NewsController extends AbstractController
         return $this->render('news/createNew.html.twig',['f'=>$form->createView()]);
     }
     /**
-     * @Route("/Admin/supNew/{id}", name="app_supNew")
+     * @Route("/supNew/{id}", name="app_supNew")
      */
     public function suppressionNew(News $new): Response
 {
@@ -96,7 +96,7 @@ class NewsController extends AbstractController
     return $this->redirectToRoute('app_news');
 }
 /**
-     * @Route("/Admin/modNew/{id}", name="app_modNew")
+     * @Route("/modNew/{id}", name="app_modNew")
      */
     public function modNew(Request $request,$id): Response
     {

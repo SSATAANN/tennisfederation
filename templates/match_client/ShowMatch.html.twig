@@ -121,100 +121,53 @@
     </div>
     </nav>
     <section class="my-5 py-5 " id="matches-section">
+            
+      <div class="container mt-sm-5 mt-3 text-center d-flex justify-content-center">
       
-      <div class="card-body px-0 pb-0">
-        <div class="table-responsive">
-          <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-            <div class="dataTable-top">
-              <div class="input-group input-group-outline">
-                <label class="form-label">Search here</label>
-                <input type="text" class="form-control dataTable-input"  id="matchSearchInput">
-              </div>
-              
-            </div>
-            <div class="dataTable-container">
-                <table class="table table-flush dataTable-table" id="matches-list">
-                  <thead class="thead-light">
-                    <tr>
-                    
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">DATE</a>   
-                      </th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">TOURNAMENT</a>
-                      </th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">TYPE</a>
-                      </th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">REFEREE</a>
-                      </th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 1</a></th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 2</a></th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 3</a></th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 4</a></th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">WINNER</a>
-                      </th>
-                   
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">RESULTAT</a></th>
-                      <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">STATUS</a></th>
-                     
-        
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for match in matches %}
-                    <tr>
-                    
-                      <td class=" text-center text-sm">{{ match.date|date('Y-m-d') }}</td>
-                      <td class=" text-center text-sm">{{ match.tournament }}</td>
-                      <td class=" text-center text-sm">{{ match.type }}</td>
-                      <td class="text-center text-sm">
-                        {% for referee in match.referees %}
-                        <span class="badge badge-success badge-sm mt-2">{{ referee.firstName }}</span>
-                            
-                            {% if not loop.last %}<br> {% endif %}
-                        {% endfor %}
-                    </td>
-                      
-                      <td class=" text-center text-sm">{{ match.player1.firstName }} {{ match.player1.lastName }}</td>
-                      <td class=" text-center text-sm">{{ match.player2.firstName }} {{ match.player2.lastName }}</td>
-                      <td class="text-center text-sm">
-                        {% if match.player3 is not null %}
-                            {{ match.player3.firstName }} {{ match.player3.lastName }}
-                        {% else %}
-                            N/A
+          <div class="col-lg-9 ">
+            <div class="block-area ">
+              <div class="card card-full ">
+                {% for match in matches %}
+                {% if (match.player1.getEmail() == app.user.email)  %}
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12 mb-2">
+                                    <div class="card-body pt-4 pt-sm-0">
+                                        <!-- title -->
+                                        <h3 class="card-title">
+                                            <a href="#">{{ match.player1.getName() }} VS {{ match.player2.getName() }}</a>
+                                        </h3>
+                                        <!-- author, date & comments -->
+                                        <div class="card-text mb-2 text-muted small">
+                                            <span class="d-none d-sm-inline me-1">
+                                                <a class="font-weight-bold text-center" href="#">Tournament: {{ match.tournament }}</a>
+                                            </span>
+                                            <time datetime="2019-10-21">{{ match.date|date('Y-m-d') }}</time>
+                                        </div>
+                                        <!-- description -->
+                                        {% if match.etat == 'en cours' %}
+                                            <a class="font-weight-bold text-center" href="#">Winner:</a> <a href="#"> {{ match.etat }}</a>
+                                        {% elseif match.etat == 'termine' %}
+                                            <a class="font-weight-bold text-center" href="#">Result:</a> <a href="#"> {{ match.resultat }}</a> <br>
+                                            <a class="font-weight-bold text-center" href="#">Winner:</a> <a href="#"> {{ match.winner.getName() }}</a>
+                                        {% else %}
+                                            <a class="font-weight-bold text-center" href="#">Soon:</a> <a href="#"> {{ match.date|date('Y-m-d') }}</a>
+                                        {% endif %}
+                                        <!-- read more button -->
+                                        <div class="text-end">
+                                            <a class="font-weight-bold text-center" href="{{ path('app_match_client') }}">
+                                                <button type="button" class="btn btn-rounded bg-gradient-primary mt-4">View Matches</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         {% endif %}
-                    </td>
-                    <td class="text-center text-sm">
-                      {% if match.player4 is not null %}
-                          {{ match.player4.firstName }} {{ match.player4.lastName }}
-                      {% else %}
-                          N/A
-                      {% endif %}
-                  </td>
-                  <td class="text-center text-sm">
-                    {% for winner in match.winners %}
-                        <span class="badge badge-success badge-sm mt-2">{{ winner.firstName }} {{ winner.lastName }}</span>
-                        {% if not loop.last %}<br> {% endif %}
                     {% endfor %}
-                </td>
-                      
-                      <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ match.resultat }}</span></td>
-                      <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ match.etat }} </span></td>
-                     
-                     
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-
-                </table>
-                
-
                     
-                    
-              </div>
               </div>
             </div>
       </div>
     </section>
-          
 
 
 {% endblock %}
