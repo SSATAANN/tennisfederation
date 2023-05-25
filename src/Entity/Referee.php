@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,39 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Referee
 {
-    /**
- * @ORM\ManyToMany(targetEntity="App\Entity\Matcch", mappedBy="referees")
- */
-private $matches;
-
-public function __construct()
-{
-    $this->matches = new ArrayCollection();
-}
-
-public function getMatches(): Collection
-{
-    return $this->matches;
-}
-
-public function addMatch(Matcch $match): self
-{
-    if (!$this->matches->contains($match)) {
-        $this->matches[] = $match;
-        $match->addReferee($this);
-    }
-
-    return $this;
-}
-
-public function removeMatch(Matcch $match): self
-{
-    if ($this->matches->removeElement($match)) {
-        $match->removeReferee($this);
-    }
-
-    return $this;
-}
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

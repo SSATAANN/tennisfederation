@@ -41,6 +41,6 @@ security:
 
     # Require authentication for other routes
     - { path: ^/Admin, roles: ROLE_ADMIN }
-    - { path: ^/Clinet/Player, roles: ROLE_PLAYER }
+    - { path: ^/player, roles: ROLE_PLAYER }
     - { path: ^/referee, roles: ROLE_REFEREE }
     - { path: ^/Client, roles: ROLE_VISITOR }

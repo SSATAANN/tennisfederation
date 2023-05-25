@@ -152,17 +152,11 @@
                             </th>
                             <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">TOURNAMENT</a>
                             </th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">TYPE</a>
-                            </th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">REFEREE</a>
-                            </th>
                             <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 1</a></th>
                             <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 2</a></th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 3</a></th>
-                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">PLAYER 4</a></th>
                             <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">WINNER</a>
                             </th>
-                         
+                            <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">LOSER</a></th>
                             <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">RESULTAT</a></th>
                             <th class="border-0 text-center" scope="col" data-sortable="" colspan="1"><a href="#" class="dataTable-sorter">STATUS</a></th>
                            
@@ -175,38 +169,11 @@
                             <td class="text-center text-sm"> {{ matches.id }}</td>
                             <td class=" text-center text-sm">{{ matches.date|date('Y-m-d') }}</td>
                             <td class=" text-center text-sm">{{ matches.tournament }}</td>
-                            <td class=" text-center text-sm">{{ matches.type }}</td>
-                            <td class="text-center text-sm">
-                              {% for referee in matches.referees %}
-                              <span class="badge badge-success badge-sm mt-2"> {{ referee.firstName }}</span>
-                                 
-                                  {% if not loop.last %}<br> {% endif %}
-                              {% endfor %}
-                          </td>
                             
                             <td class=" text-center text-sm">{{ matches.player1.firstName }} {{ matches.player1.lastName }}</td>
                             <td class=" text-center text-sm">{{ matches.player2.firstName }} {{ matches.player2.lastName }}</td>
-                            <td class="text-center text-sm">
-                              {% if matches.player3 is not null %}
-                                  {{ matches.player3.firstName }} {{ matches.player3.lastName }}
-                              {% else %}
-                                  N/A
-                              {% endif %}
-                          </td>
-                          <td class="text-center text-sm">
-                            {% if matches.player4 is not null %}
-                                {{ matches.player4.firstName }} {{ matches.player4.lastName }}
-                            {% else %}
-                                N/A
-                            {% endif %}
-                        </td>
-                        <td class="text-center text-sm">
-                          {% for winner in matches.winners %}
-                              <span class="badge badge-success badge-sm mt-2">{{ winner.firstName }} {{ winner.lastName }}</span>
-                              {% if not loop.last %}<br> {% endif %}
-                          {% endfor %}
-                      </td>
-                            
+                            <td class=" text-center text-sm" > <span class="badge badge-success badge-sm ">{{ matches.winner.firstName }} {{ matches.winner.lastName }}</span></td>
+                            <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ matches.loser.firstName }} {{ matches.loser.lastName }}</span></td>
                             <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ matches.resultat }}</span></td>
                             <td class=" text-center text-sm" > <span class="badge badge-danger badge-sm ">{{ matches.etat }} </span></td>
                            

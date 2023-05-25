@@ -20,7 +20,7 @@ class RegisterController extends AbstractController
     }
 
     /**
-     * @Route("/Login/registration", name="registration")
+     * @Route("/registration", name="registration")
      */
     public function index(Request $request)
     {
