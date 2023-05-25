@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\MatcchRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,6 +13,88 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Matcch
 {
+    /**
+     * @ORM\ManyToMany(targetEntity=Player::class, inversedBy="matches")
+     * @ORM\JoinTable(name="match_winner",
+     *      joinColumns={@ORM\JoinColumn(name="match_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="player_id", referencedColumnName="id")}
+     * )
+     */
+    private $winners;
+
+    public function __construct()
+    {
+        $this->referees = new ArrayCollection();
+        $this->winners = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Player[]
+     */
+    public function getWinners(): Collection
+    {
+        return $this->winners;
+    }
+
+    public function addWinner(Player $winner): self
+    {
+        if (!$this->winners->contains($winner)) {
+            $this->winners[] = $winner;
+        }
+
+        return $this;
+    }
+
+    public function removeWinner(Player $winner): self
+    {
+        $this->winners->removeElement($winner);
+
+        return $this;
+    }
+    /**
+ * @ORM\ManyToMany(targetEntity="App\Entity\Referee", inversedBy="matches")
+ * @ORM\JoinTable(name="match_referee",
+ *     joinColumns={@ORM\JoinColumn(name="match_id", referencedColumnName="id")},
+ *     inverseJoinColumns={@ORM\JoinColumn(name="referee_id", referencedColumnName="id")}
+ * )
+ */
+private $referees;
+
+
+
+/**
+ * @return Collection|Referee[]
+ */
+public function getReferees(): Collection
+{
+    return $this->referees;
+}
+
+public function addReferee(Referee $referee): self
+{
+    if (!$this->referees->contains($referee)) {
+        $this->referees[] = $referee;
+    }
+
+    return $this;
+}
+
+public function removeReferee(Referee $referee): self
+{
+    $this->referees->removeElement($referee);
+
+    return $this;
+}
+     /**
+     * @ORM\PrePersist
+     */
+    public function updatePlayers()
+    {
+        if ($this->type === 'Single') {
+            $this->player3 = null;
+            $this->player4 = null;
+        }
+    }
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -43,13 +128,13 @@ private $player1;
 private $player2;
 /**
  * @ORM\ManyToOne(targetEntity=Player::class)
- * @ORM\JoinColumn(nullable=false, referencedColumnName="id", onDelete="SET NULL")
+ * @ORM\JoinColumn(nullable=true, referencedColumnName="id", onDelete="SET NULL")
  */
 private $player3;
 
 /**
  * @ORM\ManyToOne(targetEntity=Player::class)
- * @ORM\JoinColumn(nullable=false, referencedColumnName="id", onDelete="SET NULL")
+ * @ORM\JoinColumn(nullable=true, referencedColumnName="id", onDelete="SET NULL")
  */
 private $player4;
 
@@ -61,12 +146,7 @@ private $player4;
 
     private $winner;
 
-  /**
- * @ORM\ManyToOne(targetEntity="Player")
- * @ORM\JoinColumn(name="loser", referencedColumnName="id", onDelete="SET NULL")
- */
 
-    private $loser;
 
     //-------------------
     /**
@@ -213,15 +293,5 @@ private $player4;
         return $this;
     }
 
-    public function getLoser(): ?Player
-    {
-        return $this->loser;
-    }
 
-    public function setLoser(?Player $loser): self
-    {
-        $this->loser = $loser;
-
-        return $this;
-    }
 }

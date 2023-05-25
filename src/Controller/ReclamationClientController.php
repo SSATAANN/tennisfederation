@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Security;
 class ReclamationClientController extends AbstractController
 {
     /**
-     * @Route("/addReclamation", name="app_addReclamation")
+     * @Route("/Client/addReclamation", name="app_addReclamation")
      */
     public function create(Request $request,Security $security): Response
     {

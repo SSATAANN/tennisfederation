@@ -1,3 +1,4 @@
+
 {% extends 'baseClient.html.twig' %}
 
 {% block content %}
@@ -119,48 +120,69 @@
     </div>
     </div>
     </nav>
-    <section class="py-5">
-      <div class="container">
-        <h3 class="text-center">You may also be interested in:</h3>
-        <div class="row mt-7">
-          {% set sortedPlayerCards = playerCards|sort((a, b) => a.ranking - b.ranking) %}
+    <section class="my-5 py-5 " id="matches-section">
+            
+      <div class="container mt-sm-5 mt-3 text-center d-flex justify-content-center">
+      
+          <div class="col-lg-9 ">
+            <div class="block-area ">
+              <div class="card card-full ">
+                      {% for match in matches %}
+          {% set player1Email = match.player1 is not null ? match.player1.getEmail() : null %}
+          {% set player2Email = match.player2 is not null ? match.player2.getEmail() : null %}
+          {% set player3Email = match.player3 is not null ? match.player3.getEmail() : null %}
+          {% set player4Email = match.player4 is not null ? match.player4.getEmail() : null %}
 
-      {% for playerCard in sortedPlayerCards %}
+          {% if player1Email == app.user.email or player2Email == app.user.email or player3Email == app.user.email or player4Email == app.user.email %}
+              <div class="row justify-content-center">
+                  <div class="col-sm-12 mb-2">
+                      <div class="card-body pt-4 pt-sm-0">
+                          <!-- title -->
+                          {% if match.type == 'Single' %}
+                              <h3 class="card-title">
+                                  <a href="#">{{ match.player1.getName() }} VS {{ match.player2.getName() }}</a>
+                              </h3>
+                          {% elseif match.type == 'Double' %}
+                              <h3 class="card-title">
+                                  <a href="#">{{ match.player1.getName() }} - {{ match.player2.getName() }}</a>
+                                  VS
+                                  <a href="#">{{ match.player3.getName() }} - {{ match.player4.getName() }}</a>
+                              </h3>
+                          {% endif %}
+                          <!-- author, date & comments -->
+                          <div class="card-text mb-2 text-muted small">
+                              <span class="d-none d-sm-inline me-1">
+                                  <a class="font-weight-bold text-center" href="#">Tournament: {{ match.tournament }}</a>
+                              </span>
+                              <time datetime="2019-10-21">{{ match.date|date('Y-m-d') }}</time>
+                          </div>
+                          <!-- description -->
+                          {% if match.etat == 'en cours' %}
+                              <a class="font-weight-bold text-center" href="#">Winner:</a> <a href="#"> {{ match.etat }}</a>
+                          {% elseif match.etat == 'termine' %}
+                              <a class="font-weight-bold text-center" href="#">Result:</a> <a href="#"> {{ match.resultat }}</a> <br>
+                              {% for winner in match.winners %}
+                              <span class="badge badge-success badge-sm">{{ winner.firstName }} {{ winner.lastName }}</span>
+                              {% if not loop.last %}, {% endif %}
+                              {% endfor %}
 
-          <div class="col-6 col-lg-3 mb-5">
-            <div class="card mb-5 mb-lg-0">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <a class="d-block blur-shadow-image">
-                  <img src="{{ asset('uploads/player_images/' ~ playerCard.image) }}"
-                    class="img-fluid border-radius-lg" loading="lazy">
-                </a>
-             
+                          {% else %}
+                              <a class="font-weight-bold text-center" href="#">Soon:</a> <a href="#"> {{ match.date|date('Y-m-d') }}</a>
+                          {% endif %}
+                          <!-- read more button -->
+                      </div>
+                  </div>
               </div>
-              <div class="card-body text-center">
-                <p class="mb-0 text-primary text-uppercase font-weight-normal text-sm">Rank {{ playerCard.ranking }}</p>
-                <h5 class="font-weight-bold mt-3">
-                  <a href="javascript:;">{{ playerCard.firstName }} {{ playerCard.lastName }}</a>
-                </h5>
-                <p class="mb-0 text-primary text-uppercase font-weight-normal text-sm">Nationality</p>
-               
-                <p class="mb-0">
-                  {{ playerCard.nationality }}
-                </p>
-              </div>
-              <div class="card-footer d-flex pt-0 justify-content-center">
-                <a href="{{ path('app_player_detail', {'id': playerCard.id}) }}" class="btn btn-rounded bg-gradient-primary mt-4">Details</a>
-              </div>
-            </div>
-          </div>
+          {% endif %}
       {% endfor %}
 
-          
-          
-        </div>
+                    
+                    
+              </div>
+            </div>
       </div>
     </section>
 
 
-
-
 {% endblock %}
+

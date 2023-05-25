@@ -9,17 +9,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 
-class MatchClientController extends AbstractController
+class MatchClientPlayerController extends AbstractController
 {
     /**
-     * @Route("/Client/matches", name="app_match_client")
+     * @Route("/Player/client/matches", name="app_match_client_player")
      */
-    public function MatchAction(): Response
+    public function MatchPlayerAction(): Response
     {
         $em = $this->getDoctrine()->getManager();
         $matches = $em->getRepository(Matcch::class)->findAll();
         
-        return $this->render('match_client/ShowMatch.html.twig', [
+        return $this->render('match_client_player/ShowMatchPlayer.html.twig', [
             'matches' => $matches,
         ]);
     }

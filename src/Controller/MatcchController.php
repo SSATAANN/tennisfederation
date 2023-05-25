@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MatcchController extends AbstractController
 {
     /**
-     * @Route("/Match", name="app_match")
+     * @Route("/Admin/Match", name="app_match")
      */
     public function index(): Response
     {
@@ -24,7 +24,7 @@ class MatcchController extends AbstractController
 
 
     /**
-     * @Route("/addMatch", name="app_addMatch")
+     * @Route("/Admin/addMatch", name="app_addMatch")
      */
     public function addMatch(Request $request): Response
     {
@@ -36,6 +36,9 @@ class MatcchController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            
+            $match->updatePlayers();
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($match); //add
             $em->flush();
@@ -46,7 +49,7 @@ class MatcchController extends AbstractController
     }
     
     /**
-     * @Route("/supMatch/{id}", name="app_supmatch")
+     * @Route("/Admin/supMatch/{id}", name="app_supmatch")
      */
     public function supprissionMatch(Matcch $match): Response
     {
@@ -59,7 +62,7 @@ class MatcchController extends AbstractController
 
     
     /**
-     * @Route("/modMatch/{id}", name="app_modmatch")
+     * @Route("/Admin/modMatch/{id}", name="app_modmatch")
      */
     public function modMatch(Request $request,$id): Response
     {

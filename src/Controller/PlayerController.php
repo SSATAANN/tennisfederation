@@ -32,7 +32,7 @@ class PlayerController extends AbstractController
     }
 
      /**
-     * @Route("/addPlayer", name="app_addplayer")
+     * @Route("/Admin/addPlayer", name="app_addplayer")
      */
     public function addPlayer(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -70,7 +70,7 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("/supPlayer/{id}", name="app_supplayer")
+     * @Route("/Admin/supPlayer/{id}", name="app_supplayer")
      */
     public function suppressionPlayer(Player $player): Response
 {
@@ -93,7 +93,7 @@ class PlayerController extends AbstractController
     
 
     /**
-     * @Route("/modPlayer/{id}", name="app_modplayer")
+     * @Route("/Admin/modPlayer/{id}", name="app_modplayer")
      */
     public function modPlayer(Request $request,$id): Response
     {
