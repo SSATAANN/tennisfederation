@@ -57,7 +57,7 @@ class RefereeController extends AbstractController
         $referee->setUser($refereeUser);
 
 
-        //add referee
+             //add referee
              /** @var UploadedFile $imageFile */
              $imageFile = $form->get('imageFile')->getData();
 
@@ -109,7 +109,7 @@ class RefereeController extends AbstractController
     /**
      * @Route("/Admin/modReferee/{id}", name="app_modreferee")
      */
-    public function modReferee(Request $request,$id): Response
+    public function modReferee(Request $request,$id,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $referee = $this->getDoctrine()->getManager()->getRepository(Referee::class)->find($id);
 
@@ -120,6 +120,16 @@ class RefereeController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         
         {
+             // Update the player's email and password
+        $user = $referee->getUser();
+        $user->setEmail($form->get('email')->getData());
+
+        $plainPassword = $form->get('password')->getData();
+        if (!empty($plainPassword)) {
+            // Encrypt the new password
+            $encodedPassword = $passwordEncoder->encodePassword($user, $plainPassword);
+            $user->setPassword($encodedPassword);
+        }
               /** @var UploadedFile $imageFile */
               $imageFile = $form->get('imageFile')->getData();
 

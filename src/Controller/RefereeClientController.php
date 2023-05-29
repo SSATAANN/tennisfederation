@@ -11,7 +11,6 @@ use App\Repository\PlayerRepository;
 use App\Repository\MatcchRepository;
 use App\Entity\Matcch;
 use App\Entity\News;
-use App\Entity\Referee;
 use App\Entity\Player;
 
 class RefereeClientController extends AbstractController
@@ -19,11 +18,11 @@ class RefereeClientController extends AbstractController
     /**
      * @Route("/referee/client", name="app_referee_client")
      */
-    public function index(UserRepository $userRepository, RefereeRepository $refereeRepository, MatcchRepository $matchRepository): Response
+    public function index(UserRepository $userRepository, PlayerRepository $playerRepository, MatcchRepository $matchRepository): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $refereeCards = $em->getRepository(Referee::class)->findAll();
-        // Retrieve the logged-in user
+        $playerCards = $em->getRepository(Player::class)->findAll();
+                // Retrieve the logged-in user
         $user = $this->getUser();
 
         // Retrieve the player associated with the user
@@ -39,15 +38,19 @@ class RefereeClientController extends AbstractController
         $totalVisitors = $userRepository->getTotalUsersByRole('ROLE_VISITOR');
         $totalMatches = $matchRepository->getTotalMatches();
         $totalReferee = $userRepository->getTotalUsersByRole('ROLE_REFEREE');
+        $totalPlayers = $playerRepository->getTotalPlayers();
+
         
         return $this->render('referee_client/index.html.twig', [
             
+            'playerCards' => $playerCards,
             'matches' => $matches,
             'news' => $news,
             'totalVisitors' => $totalVisitors,
             'totalMatches' => $totalMatches,
             
             'totalReferee' => $totalReferee,
+            'totalPlayers' => $totalPlayers,
         ]);
     }
 }

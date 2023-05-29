@@ -1,0 +1,265 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block content %}
+<div class="container position-sticky z-index-sticky top-0">
+    <div class="row">
+    <div class="col-12">
+    <nav class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+    <div class="container-fluid px-0">
+    <a class="navbar-brand font-weight-bolder ms-sm-3  d-none d-md-block" href="index.html" rel="tooltip" title="Designed and Coded by Iset Beja DSI2.2" data-placement="bottom" target="_blank">
+    Tunisian Federation Of Tennis
+    </a>
+    <a class="navbar-brand font-weight-bolder ms-sm-3  d-block d-md-none" href="index.html" rel="tooltip" title="Designed and Coded by Iset Beja DSI2.2" data-placement="bottom" target="_blank">
+    Material Design
+    </a>
+    
+    <ul class="navbar-nav mb-0 ms-auto d-lg-none d-block">
+      <li class="nav-item">
+        
+        {% if app.user %}
+        <div class="avatar-group">
+          <div class="dropdown">
+            <a href="#" role="button" class="avatar avatar-lg rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ app.user.name }}">
+              <img alt="Image placeholder" src="{{ asset('uploads/user_images/' ~ app.user.getImage) }}">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end position-absolute">
+              <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
+              <li><a class="dropdown-item" href="#">Reset Password</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+            </ul>
+          </div>
+        </div>
+        
+          <!-- initialization script for tooltips -->
+          <script>
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+              return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+          </script>
+        {% endif %}
+        {% if app.user == null %}
+            <a href="{{ path('app_login') }}" class="btn btn-sm  bg-gradient-primary  mb-0" >  Login </a>
+        {% endif %}
+      </li>
+      </ul>
+    <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon mt-2">
+    <span class="navbar-toggler-bar bar1"></span>
+    <span class="navbar-toggler-bar bar2"></span>
+    <span class="navbar-toggler-bar bar3"></span>
+    </span>
+    </button>
+    <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
+    <ul class="navbar-nav navbar-nav-hover ms-auto">
+      <li class="nav-item mx-2">
+        <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="{{ path('Client') }}">
+            <i class="material-icons opacity-6 me-2 text-md">home</i>
+            Home
+        </a>
+    </li>
+    <li class="nav-item mx-2">
+      <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center"  href="{{ path('Client') }}">
+          <i class="material-icons opacity-6 me-2 text-md">person</i>
+          Players
+      </a>
+  </li>
+  
+  <li class="nav-item mx-2">
+    <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="{{ path('Client') }}">
+        <i class="material-icons opacity-6 me-2 text-md">sports_tennis</i>
+        Matches
+    </a>
+</li>
+
+<li class="nav-item mx-2">
+  <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="{{ path('Client') }}">
+      <i class="material-icons opacity-6 me-2 text-md">newspaper</i>
+      News
+  </a>
+</li>
+{% if app.user %}
+<li class="nav-item mx-2">
+  <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="{{ path('Client') }}">
+      <i class="material-icons opacity-6 me-2 text-md">contacts</i>
+      Contacts
+  </a>
+</li>
+{% endif %}
+
+    </ul>
+    <ul class="navbar-nav d-lg-block d-none">
+    <li class="nav-item">
+      
+      {% if app.user %}
+      <div class="avatar-group">
+        <div class="dropdown">
+          <a href="#" role="button" class="avatar avatar-lg rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ app.user.name }}">
+            <img alt="Image placeholder" src="{{ asset('uploads/user_images/' ~ app.user.getImage) }}">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
+            <li><a class="dropdown-item" href="#">Reset Password</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+          </ul>
+        </div>
+      </div>
+      
+        <!-- initialization script for tooltips -->
+        <script>
+          var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+          var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+          })
+        </script>
+      {% endif %}
+      {% if app.user == null %}
+          <a href="{{ path('app_login') }}" class="btn btn-sm  bg-gradient-primary  mb-0" >  Login </a>
+      {% endif %}
+    </li>
+    </ul>
+    </div>
+    </div>
+    </nav>
+</div>
+</div>
+</div>
+    <header class="position-relative">
+        <div class="page-header min-vh-50 position-relative" style="background-image: url({{ asset('assetClient/assets/img/bg-header-3.jpg') }});" loading="lazy">
+        <span class="mask bg-gradient-primary opacity-6"></span>
+        </div>
+    </header>
+    {% for playerDetail in playerDetails %}
+    
+    <div class="card card-body blur shadow-blur mx-4 mx-md-5 mx-lg-10 mt-n9">
+        
+        <div class="section my-4 my-lg-5">
+            <div class="container">
+                <div class="row flex-row">
+                    <div class="col-lg-5">
+                        <img class="w-80 border-radius-lg ms-2" src="{{ asset('uploads/player_images/' ~ playerDetail.image) }}" alt="ladydady"
+                            loading="lazy">
+                        
+    
+                        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    
+                            <div class="pswp__bg"></div>
+    
+                            <div class="pswp__scroll-wrap">
+    
+    
+                                <div class="pswp__container">
+                                    <div class="pswp__item"></div>
+                                    <div class="pswp__item"></div>
+                                    <div class="pswp__item"></div>
+                                </div>
+    
+                                <div class="pswp__ui pswp__ui--hidden">
+                                    <div class="pswp__top-bar">
+    
+                                        <div class="pswp__counter"></div>
+                                        <button class="btn btn-white btn-sm pswp__button pswp__button--close">Close
+                                            (Esc)</button>
+                                        <button
+                                            class="btn btn-white btn-sm pswp__button pswp__button--fs">Fullscreen</button>
+                                        <button class="btn btn-white btn-sm pswp__button pswp__button--arrow--left">Prev
+                                        </button>
+                                        <button class="btn btn-white btn-sm pswp__button pswp__button--arrow--right">Next
+                                        </button>
+    
+    
+                                        <div class="pswp__preloader">
+                                            <div class="pswp__preloader__icn">
+                                                <div class="pswp__preloader__cut">
+                                                    <div class="pswp__preloader__donut"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                                        <div class="pswp__share-tooltip"></div>
+                                    </div>
+                                    <div class="pswp__caption">
+                                        <div class="pswp__caption__center"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div>
+                            <h3 class="mt-lg-0 mt-4">{{ playerDetail.firstName }} {{ playerDetail.lastName }}</h3>
+                            <span class="badge badge-success">Rank {{ playerDetail.ranking }}</span>
+                            <h6 class="mb-0 mt-2 mb-2">Nationality</h6>
+                            <span class="badge badge-success">{{ playerDetail.nationality }}</span>
+                            <div class="accordion" id="accordionProduct">
+                                <div class="accordion-item mb-1">
+                                    <h6 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button border-bottom font-weight-bold text-start"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                            Bio
+                                            <i class="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0"></i>
+                                            <i class="collapse-open fa fa-minus text-xs pt-1 position-absolute end-0"></i>
+                                        </button>
+                                    </h6>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne" data-bs-parent="#accordionProduct">
+                                        <div class="accordion-body text-sm opacity-8">
+                                            {{ playerDetail.bio }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item mb-1">
+                                    <h6 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button border-bottom font-weight-bold text-start"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                            Titles
+                                            <i class="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0"></i>
+                                            <i class="collapse-open fa fa-minus text-xs pt-1 position-absolute end-0"></i>
+                                        </button>
+                                    </h6>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                        data-bs-parent="#accordionProduct">
+                                        <div class="accordion-body text-sm opacity-8">
+                                            <h3 class="mt-lg-0 mt-4">    {{ playerDetail.titles }} </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item mb-1">
+                                    <h6 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button border-bottom font-weight-bold text-start"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            More
+                                            <i class="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0"></i>
+                                            <i class="collapse-open fa fa-minus text-xs pt-1 position-absolute end-0"></i>
+                                        </button>
+                                    </h6>
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="headingThree" data-bs-parent="#accordionProduct">
+                                        <div class="accordion-body text-sm opacity-8">
+                                            <ul>
+                                                <li>Gender : {{ playerDetail.gender }}</li>
+                                                <li>Height : {{ playerDetail.height }} Cm</li>
+                                                <li>Weight : {{ playerDetail.weight }} Kg</li>
+                                                <li>Handedness : {{ playerDetail.handedness }}</li>
+                                                <li>Birthday : {{ playerDetail.birthDate|date('Y-m-d') }}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+
+{% endblock %}

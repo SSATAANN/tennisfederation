@@ -23,6 +23,7 @@ class RefereeRepository extends ServiceEntityRepository
         parent::__construct($registry, Referee::class);
     }
 
+    
     /**
      * @throws ORMException
      * @throws OptimisticLockException

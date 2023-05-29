@@ -60,27 +60,27 @@
         </a>
     </li>
     <li class="nav-item mx-2">
-      <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center"  href="#players-section">
+      <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center"  href="{{ path('app_player_client') }}">
           <i class="material-icons opacity-6 me-2 text-md">person</i>
           Players
       </a>
   </li>
   
   <li class="nav-item mx-2">
-    <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="#">
+    <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="{{ path('app_player_client') }}">
         <i class="material-icons opacity-6 me-2 text-md">sports_tennis</i>
         Matches
     </a>
 </li>
 
 <li class="nav-item mx-2">
-  <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="#">
+  <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="{{ path('app_player_client') }}">
       <i class="material-icons opacity-6 me-2 text-md">newspaper</i>
       News
   </a>
 </li>
 <li class="nav-item mx-2">
-  <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="#">
+  <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" href="{{ path('app_player_client') }}">
       <i class="material-icons opacity-6 me-2 text-md">contacts</i>
       Contacts
   </a>
@@ -120,69 +120,109 @@
     </div>
     </div>
     </nav>
-    <section class="my-5 py-5 " id="matches-section">
-            
-      <div class="container mt-sm-5 mt-3 text-center d-flex justify-content-center">
-      
-          <div class="col-lg-9 ">
-            <div class="block-area ">
-              <div class="card card-full ">
-                      {% for match in matches %}
-          {% set player1Email = match.player1 is not null ? match.player1.getEmail() : null %}
-          {% set player2Email = match.player2 is not null ? match.player2.getEmail() : null %}
-          {% set player3Email = match.player3 is not null ? match.player3.getEmail() : null %}
-          {% set player4Email = match.player4 is not null ? match.player4.getEmail() : null %}
 
-          {% if player1Email == app.user.email or player2Email == app.user.email or player3Email == app.user.email or player4Email == app.user.email %}
-              <div class="row justify-content-center">
-                  <div class="col-sm-12 mb-2">
-                      <div class="card-body pt-4 pt-sm-0">
-                          <!-- title -->
-                          {% if match.type == 'Single' %}
-                              <h3 class="card-title">
-                                  <a href="#">{{ match.player1.getName() }} VS {{ match.player2.getName() }}</a>
-                              </h3>
-                          {% elseif match.type == 'Double' %}
-                              <h3 class="card-title">
-                                  <a href="#">{{ match.player1.getName() }} - {{ match.player2.getName() }}</a>
-                                  VS
-                                  <a href="#">{{ match.player3.getName() }} - {{ match.player4.getName() }}</a>
-                              </h3>
-                          {% endif %}
-                          <!-- author, date & comments -->
-                          <div class="card-text mb-2 text-muted small">
-                              <span class="d-none d-sm-inline me-1">
-                                  <a class="font-weight-bold text-center" href="#">Tournament: {{ match.tournament }}</a>
-                              </span>
-                              <time datetime="2019-10-21">{{ match.date|date('Y-m-d') }}</time>
+    <section class="pt-5 mt-7">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="card">
+              <div class="table-responsive">
+                {% for match in matches %}
+                {% set player1Email = match.player1 is not null ? match.player1.getEmail() : null %}
+                {% set player2Email = match.player2 is not null ? match.player2.getEmail() : null %}
+                {% set player3Email = match.player3 is not null ? match.player3.getEmail() : null %}
+                {% set player4Email = match.player4 is not null ? match.player4.getEmail() : null %}
+
+  {% if player1Email == app.user.email or player2Email == app.user.email or player3Email == app.user.email or player4Email == app.user.email %}
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Players</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Referees</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tournament</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Winner</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      
+                      <td>
+                          <div class="d-flex flex-column justify-content-center">
+                            <div class="d-flex flex-column justify-content-center">
+                                {% if match.type == 'Single' %}
+                                      
+                                <h6 class="mb-0 text-xs text-center">{{ match.player1.getName() }} <p class="text-xs text-secondary mb-0"> VS </p> {{ match.player2.getName() }}</h6>
+                                    
+                                  {% elseif match.type == 'Double' %}
+                                    
+                                        <h6 class="mb-0 text-xs text-center">{{ match.player1.getName() }} - {{ match.player2.getName() }} <p class="text-xs text-secondary mb-0"> VS </p>{{ match.player3.getName() }} - {{ match.player4.getName() }}</h6>
+                                          
+                                  {% endif %}
                           </div>
-                          <!-- description -->
-                          {% if match.etat == 'en cours' %}
-                              <a class="font-weight-bold text-center" href="#">Winner:</a> <a href="#"> {{ match.etat }}</a>
-                          {% elseif match.etat == 'termine' %}
-                              <a class="font-weight-bold text-center" href="#">Result:</a> <a href="#"> {{ match.resultat }}</a> <br>
-                              {% for winner in match.winners %}
-                              <span class="badge badge-success badge-sm">{{ winner.firstName }} {{ winner.lastName }}</span>
-                              {% if not loop.last %}, {% endif %}
+                        </div>
+                      </td>
+                      <td>
+                        
+                          <div class="d-flex flex-column justify-content-center">
+                            <div class="d-flex flex-column justify-content-center">
+                              {% set referees = match.getReferees() %}
+            
+                              {% for referee in referees %}
+                                      
+                              <span class="badge badge-sm badge-success">{{ referee.firstName }} </span>
+                              {% if not loop.last %}<br>{% endif %}
                               {% endfor %}
-
-                          {% else %}
-                              <a class="font-weight-bold text-center" href="#">Soon:</a> <a href="#"> {{ match.date|date('Y-m-d') }}</a>
-                          {% endif %}
-                          <!-- read more button -->
+                                
+                          </div>
+                        </div>
+                      
+                      </td>
+                      <td>
+                        
+                        <div class="d-flex flex-column justify-content-center">
+                          <div class="d-flex flex-column justify-content-center">
+                            <span class="badge badge-sm badge-danger">{{ match.tournament }}</span>
                       </div>
-                  </div>
-              </div>
-          {% endif %}
-      {% endfor %}
+                    </div>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                      {% if match.etat == 'en cours' %}
+                        <span class="badge badge-sm badge-success">{{ match.etat }}</span>
+                        {% elseif match.etat == 'termine' %}
+                        {% for winner in match.winners %}
+                        <span class="badge badge-sm badge-success">{{ winner.firstName }} {{ winner.lastName }}</span>
+                        {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                        
+                        {% else %}
+                        <span class="badge badge-sm badge-success">{{ match.date|date('Y-m-d') }}</span>
+                      {% endif %}
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{ match.date|date('Y-m-d') }}</span>
+                      </td>
+                      
+                    </tr>
+    
+                    
+    
+                   
+                  </tbody>
+                </table>
 
-                    
-                    
+                {% endif %}
+                {% endfor %}
+          
               </div>
             </div>
+          </div>
+        </div>
       </div>
     </section>
-
 
 {% endblock %}
 

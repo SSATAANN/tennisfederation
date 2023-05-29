@@ -38,5 +38,20 @@ public function showPlayerDetails($id): Response
         'playerDetails' => [$playerDetails], // Wrap the player details in an array
     ]);
 }
+    /**
+ * @Route("/Client/player/{id}/detail", name="app_client_player_detail")
+ */
+public function showPlayerDetailsClient($id): Response
+{
+    $em = $this->getDoctrine()->getManager();
+    $playerDetails = $em->getRepository(Player::class)->findOneBy(['id' => $id]);
+    
+    if (!$playerDetails) {
+        throw $this->createNotFoundException('Player not found');
+    }
+    return $this->render('client_player_details/showPlayerDetails.html.twig', [
+        'playerDetails' => [$playerDetails], // Wrap the player details in an array
+    ]);
+}
 
 }

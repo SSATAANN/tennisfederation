@@ -43,16 +43,35 @@ class PlayerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             //add user with player 
             $playerUser = new User();
             $playerUser->setEmail($player->getEmail());
             $playerUser->setRoles(['ROLE_PLAYER']);
             $playerUser->setName($player->getFirstName()); 
-            $playerUser->setName($player->getGender()); 
+            $playerUser->setGender($player->getGender()); 
             $playerUser->setPassword(
                 $passwordEncoder->encodePassword($playerUser, $player-> getPassword())
             );
+                /** @var UploadedFile $imageFile */
+                $imageFile = $form->get('imageFile')->getData();
 
+                if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                try {
+                    $imageFile->move(
+                        $this->getParameter('player_images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // handle exception if something happens during file upload
+                }
+
+                // update the Player entity with the new image path
+                $player->setImage($newFilename);
+                }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($playerUser);
             $entityManager->flush();
@@ -93,47 +112,58 @@ class PlayerController extends AbstractController
     
 
     /**
-     * @Route("/Admin/modPlayer/{id}", name="app_modplayer")
-     */
-    public function modPlayer(Request $request,$id): Response
-    {
-        $player = $this->getDoctrine()->getManager()->getRepository(Player::class)->find($id);
+ * @Route("/Admin/modPlayer/{id}", name="app_modplayer")
+ */
+public function modPlayer(Request $request, $id, UserPasswordEncoderInterface $passwordEncoder): Response
+{
+    $player = $this->getDoctrine()->getManager()->getRepository(Player::class)->find($id);
 
-        $form = $this->createForm(PlayerType::class,$player);
+    $form = $this->createForm(PlayerType::class, $player);
 
-        $form->handleRequest($request);
+    $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        
-        {
-            $user = $this->getUser();
-            $player->setUser($user);
-              /** @var UploadedFile $imageFile */
-              $imageFile = $form->get('imageFile')->getData();
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Update the player's email and password
+        $user = $player->getUser();
+        $user->setEmail($form->get('email')->getData());
 
-              if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
-            
-                try {
-                    $imageFile->move(
-                        $this->getParameter('player_images_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // handle exception if something happens during file upload
-                }
-            
-                // update the Player entity with the new image path
-                $player->setImage($newFilename);
-              }
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-
-            return $this->redirectToRoute('app_player');
+        $plainPassword = $form->get('password')->getData();
+        if (!empty($plainPassword)) {
+            // Encrypt the new password
+            $encodedPassword = $passwordEncoder->encodePassword($user, $plainPassword);
+            $user->setPassword($encodedPassword);
         }
-        return $this->render('player/updatePlayer.html.twig',['f'=>$form->createView()]);
+
+        // Handle the uploaded image file
+        /** @var UploadedFile $imageFile */
+        $imageFile = $form->get('imageFile')->getData();
+
+        if ($imageFile) {
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+            try {
+                $imageFile->move(
+                    $this->getParameter('player_images_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                // handle exception if something happens during file upload
+            }
+
+            // Update the Player entity with the new image path
+            $player->setImage($newFilename);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_player');
     }
+
+    return $this->render('player/updatePlayer.html.twig', ['f' => $form->createView()]);
+}
+
 
 
      

@@ -1,5 +1,31 @@
 {% extends 'baseClient.html.twig' %}
 {% block body %}
+<style>
+  #toTopButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e02a6a;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  #toTopButton:hover {
+    opacity: 1;
+  }
+</style>
+  <button onclick="goToTop()" id="toTopButton" title="Go to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
     <div class="col-12">
@@ -100,7 +126,7 @@
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
             <li><a class="dropdown-item" href="#">Reset Password</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="{{ path('profile_update_referee') }}">Profile</a></li>
           </ul>
         </div>
       </div>
@@ -126,12 +152,12 @@
     </div>
     </div>
     <header class="header-2">
-    <div class="page-header min-vh-75" style=" background-image: url({{ asset('assetClient/assets/img/bg-header2.jpg') }});" loading="lazy">
+    <div class="page-header min-vh-75" style=" background-image: url({{ asset('assetClient/assets/img/bg-header-3.jpg') }});" loading="lazy">
     <span class="mask bg-gradient-primary opacity-3"></span>
     <div class="container">
     <div class="row">
     <div class="col-lg-7 text-center mx-auto">
-    <h1 class="text-white pt-3 mt-n5">Referee Welcome to the Tunisian Federation of Tennis!</h1>
+    <h1 class="text-white pt-3 mt-n5">{{ app.user.name }} , Welcome to the Tunisian Federation of Tennis!</h1>
     <p class="lead text-white mt-3 px-5">Unleash your passion for tennis and join the Tunisian Federation of Tennis.</p>
     </div>
     </div>
@@ -147,18 +173,18 @@
     <div class="row">
     <div class="col-md-4 position-relative">
       <div class="p-3 text-center">
-        <h1 class="text-gradient text-primary"><span id="state1" countto="{{ totalVisitors }}">0</span></h1>
-        <h5 class="mt-3">Visitors</h5>
-        <p class="text-sm font-weight-normal">Join thousands of other visitors who have explored our website's features.</p>
+        <h1 class="text-gradient text-primary"><span id="state1" countto="{{ totalPlayers }}">0</span></h1>
+        <h5 class="mt-3">Players</h5>
+        <p class="text-sm font-weight-normal">Join our thriving tennis community and be part of the excitement with thousands of players worldwide.</p>
       </div>
       
     <hr class="vertical dark">
     </div>
     <div class="col-md-4 position-relative">
       <div class="p-3 text-center">
-        <h1 class="text-gradient text-primary"><span id="state2" countto="">0</span></h1>
-        <h5 class="mt-3">Players</h5>
-        <p class="text-sm font-weight-normal">Join our thriving tennis community and be part of the excitement with thousands of players worldwide.</p>
+        <h1 class="text-gradient text-primary"><span id="state2" countto="{{ totalReferee }}">0</span></h1>
+        <h5 class="mt-3">Referees</h5>
+        <p class="text-sm font-weight-normal">Join our thriving tennis community and be part of the excitement with thousands of referees worldwide.</p>
       </div>
       
     <hr class="vertical dark">
@@ -188,15 +214,89 @@
                       <p class="lead">Experience the incredible skills and unmatched performance of our rank 1 player.</p>
                     </div>
                 </div>
-              
-               </div>
-              
-                </div>
-               
+              <div class="row align-items-center">
+      
+            {% for playerCard in playerCards %}
+                {% if playerCard.ranking == 1 %}
+                <div class="col-lg-4 ms-auto me-auto p-lg-4 mt-lg-0 mt-4">
+                  <div class="rotating-card-container">
+                     <div class="card card-rotate card-background card-background-mask-primary shadow-primary mt-md-0 mt-5 mb-5">
+                        
+                        <div class="front front-background" style="background-image: url({{ asset('assetClient/assets/img/novak.jfif') }}); background-size: cover;">
+                           <div class="card-body py-10 text-center">
+                              <h3 class="text-white" style="font-size: 150px; position: absolute; bottom: 0px; right: 10px;">{{ playerCard.ranking }}</h3>
+                              <h3 class="text-white opacity-8" style="font-size: 40px; position: absolute; bottom: 35px; right: 90px;">RANK</h3>
+                              <h2 class="text-white mb-5">{{ playerCard.firstName }} {{ playerCard.lastName }}</h2>
                               
-              
+                              <h5 class="text-white">Nationality </h5><p class="text-white opacity-8">{{ playerCard.nationality }}</p>
+                             
+                              <h5 class="text-white">Bio </h5><p class="text-white opacity-8"> {{ playerCard.bio }}</p>
+                           </div>
+                        </div>
+                        
+                        <div class="back back-background" style="background-image: url({{ asset('uploads/player_images/' ~ playerCard.image) }}); background-size: cover;">
+                           <div class="card-body pt-7 text-center">
+                              <h3 class="text-white">Discover More</h3>
+                              <p class="text-white opacity-8">Discover a diverse lineup of talented players and delve into their profiles, unlocking a wealth of information and insights</p>
+                              <a href="{{ path('app_player_card') }}"  class="btn btn-white btn-sm w-50 mx-auto mt-3">See All Players</a>
+                           </div>
+                        </div>
+                        
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-6 ms-auto">
+                <div class="row justify-content-start">
+                  <div class="col-md-4">
+                    <div class="info">
+                      <i class="material-icons text-gradient text-primary text-3xl">height</i>
+                      <h5 class="font-weight-bolder mt-3">Height</h5>
+                      <p class="pe-5">{{ playerCard.height }} Cm</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="info">
+                      <i class="material-icons text-gradient text-primary text-3xl">fitness_center</i>
+                      <h5 class="font-weight-bolder mt-3">Weight</h5>
+                      <p class="pe-3">{{ playerCard.weight }} Kg</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="info">
+                      <i class="material-icons text-gradient text-primary text-3xl">{{ playerCard.gender }}</i>
+                      <h5 class="font-weight-bolder mt-3">Gender</h5>
+                      <p class="pe-3">{{ playerCard.gender }} </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start mt-5">
+                  <div class="col-md-4 mt-3">
+                    <i class="material-icons text-gradient text-primary text-3xl">pan_tool</i>
+                    <h5 class="font-weight-bolder mt-3">Handedness</h5>
+                    <p class="pe-5">{{ playerCard.handedness }}</p>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <div class="info">
+                      <i class="material-icons text-gradient text-primary text-3xl">list_alt</i>
+                      <h5 class="font-weight-bolder mt-3">Titles</h5>
+                      <p class="pe-3">{{ playerCard.titles }}</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <div class="info">
+                      <i class="material-icons text-gradient text-primary text-3xl">celebration</i>
+                      <h5 class="font-weight-bolder mt-3">Birthday</h5>
+                      <p class="pe-3">{{ playerCard.birthDate|date('Y-m-d') }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                              
+                {% endif %}
+            {% endfor %}
                 
-              
+              </div>
+            </div>
           </section>
 
           
@@ -298,7 +398,7 @@
                             </div>
                       </div>
                       <div class="text-center">
-                        <a class="font-weight-bold text-center" href="{{ path('app_match_client_player') }}">
+                        <a class="font-weight-bold text-center" href="{{ path('app_match_client_referee') }}">
                         <button type="button" class="btn btn-rounded bg-gradient-primary mt-4">View Your Matches</button>
                         </a>
                       </div>
@@ -315,7 +415,7 @@
                 <div class="col-lg-3">
                   <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
                     <h3>News</h3>
-                    <h6 class="text-secondary font-weight-normal pe-3">A selection of 45 page sections that fit perfectly in any combination</h6>
+                    <h6 class="text-secondary font-weight-normal pe-3">Keep Updated Daily</h6>
                   </div>
                 </div>
                 <div class="col-lg-9">
@@ -343,16 +443,14 @@
                             </h2>
                             <!-- author, date and comments -->
                             <div class="card-text mb-2 text-muted small">
-                              <span class="d-none d-sm-inline me-1">
-                                <a class="fw-bold" href="#">John Doe</a>
-                              </span>
-                              <time datetime="2019-10-22">Oct 22, 2019</time>
+                             
+                              <time datetime="2019-10-17"> Created At : {{ new.createdAt|date('Y-m-d')  }}</time>
                               <span title="9 comment" class="float-end">
                                 <span class="icon-comments"></span> 9
                               </span>
                             </div>
                             <!--description-->
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <p class="card-text">{{ new.content }}</p>
                           </div>
                         </article>
                       </div>
@@ -487,5 +585,22 @@
             map.invalidateSize();
           </script>
           
-          
+          <script>
+            function goToTop() {
+              document.body.scrollTop = 0; // For Safari
+              document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+            }
+            
+            window.onscroll = function () {
+              scrollFunction();
+            };
+            
+            function scrollFunction() {
+              var button = document.getElementById("toTopButton");
+              if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                button.style.display = "block";
+              } else {
+                button.style.display = "none";
+              }
+            }</script>
 {% endblock %}
