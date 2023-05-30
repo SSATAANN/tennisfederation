@@ -89,7 +89,22 @@ public function forgotPassword(Request $request, UserRepository $userRepository,
             ->from('mhamdiamenallah666@gmail.com') // Replace with your desired sender email address
             ->to($email)
             ->subject('Password Reset')
-            ->html("<p>Hello,</p><p>A password reset request has been made. Please click the following link to reset your password: <a href='{$url}'>Reset Password</a></p>");
+            
+            ->html("<div style='background-color: #e02a6a; color: #fff; padding: 20px;'>
+                    <div style='text-align: center; margin-bottom: 20px;'>
+                   
+                    </div>
+                    <div style='text-align: center; margin-bottom: 20px;'>
+                    <div style='color: #fff;'>
+                    Dear <h1><a style='color: #fff;text-decoration: none;'>{$email}</a></h1>
+                    </div>
+                    <p>We have received a password reset request for your account. To reset your password, please click the button below:</p>
+                    <p><a href='{$url}' style='background-color: #000; color: #fff; padding: 10px 20px; text-decoration: none;'>Reset Password</a></p>
+                    <p>If you did not request a password reset, please ignore this email. Your account remains secure.</p>
+                    <p>Thank you,</p>
+                    <p>The Cool As Code Team</p>
+                    </div>
+                </div>");
 
         $mailer->send($email);
 
@@ -108,7 +123,7 @@ public function resetpassword(Request $request, string $token, UserPasswordEncod
     $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['reset_token' => $token]);
 
     if ($user == null) {
-        $this->addFlash('danger', 'TOKEN INCONNU');
+        $this->addFlash('danger', 'TOKEN UNKOWN');
         return $this->redirectToRoute("app_login");
     }
 
@@ -120,7 +135,7 @@ public function resetpassword(Request $request, string $token, UserPasswordEncod
         $entityManger->persist($user);
         $entityManger->flush();
 
-        $this->addFlash('message', 'Mot de passe mis à jour :');
+        $this->addFlash('message', 'password updated :');
         return $this->redirectToRoute("app_login");
     } else {
         return $this->render("security/resetPassword.html.twig", ['token' => $token]);
